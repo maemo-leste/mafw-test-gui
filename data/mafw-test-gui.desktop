@@ -1,0 +1,7 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=MAFW Test GUI Application
+Exec=mafw-test-gui
+Icon=mafw-test-gui
+Terminal=false
+Type=Application

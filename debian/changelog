@@ -1,0 +1,282 @@
+mafw-test-gui (0.1.2009.13-5) unstable; urgency=low
+
+  * MAFW, pre-release 0.2009.13-5
+
+ -- Juha Kellokoski <ext-juha.kellokoski@nokia.com>  Wed, 25 Mar 2009 09:16:45 +0200
+
+mafw-test-gui (0.1.2009.13-4) unstable; urgency=low
+
+  * MAFW, pre-release 0.2009.13-4
+  * Removed timer use from renderer get_position
+  * Changed API to return gint instead if guint in the get_position
+    callback
+  * Set Visa as integrator.
+  * Upgrade copyright year.
+  * Add headers for Makefile.am and configure.ac files.
+  * Set Visa Smolander as the contact person in headers.
+
+ -- Juha Kellokoski <ext-juha.kellokoski@nokia.com>  Wed, 25 Mar 2009 09:16:45 +0200
+
+mafw-test-gui (0.1.2009.13-3) unstable; urgency=low
+
+  * MAFW, pre-release 0.2009.13-3
+
+ -- Juha Kellokoski <ext-juha.kellokoski@nokia.com>  Tue, 24 Mar 2009 09:23:03 +0200
+
+mafw-test-gui (0.1.2009.13-2) unstable; urgency=low
+
+  * MAFW, pre-release 0.2009.13-2
+  * Fixes: NB#106494 - mafw-test-gui gets crashes when tapped on GO UP Tab
+
+ -- Juha Kellokoski <ext-juha.kellokoski@nokia.com>  Mon, 23 Mar 2009 09:23:05 +0200
+
+mafw-test-gui (0.1.2009.13-1) unstable; urgency=low
+
+  * MAFW, pre-release 0.2009.13-1
+  * Adding playlist_get_items
+  * Fixed CID 1187
+
+ -- Juha Kellokoski <ext-juha.kellokoski@nokia.com>  Fri, 20 Mar 2009 09:10:54 +0200
+
+mafw-test-gui (0.1.2009.12-3) unstable; urgency=low
+
+  * MAFW, pre-release 0.2009.12-3
+  * Fixes CID 6307
+  * Fixed CID 6308
+  * Fixed CID 6310
+  * Fixed CID 6311
+
+ -- Juha Kellokoski <ext-juha.kellokoski@nokia.com>  Wed, 18 Mar 2009 09:17:01 +0200
+
+mafw-test-gui (0.1.2009.12-2) unstable; urgency=low
+
+  * MAFW, pre-release 0.2009.12-2
+
+ -- Juha Kellokoski <ext-juha.kellokoski@nokia.com>  Tue, 17 Mar 2009 09:21:54 +0200
+
+mafw-test-gui (0.1.2009.11-5) unstable; urgency=low
+
+  * MAFW, pre-release 0.2009.11-5
+
+ -- Juha Kellokoski <ext-juha.kellokoski@nokia.com>  Thu, 12 Mar 2009 09:13:31 +0200
+
+mafw-test-gui (0.1.2009.11-4) unstable; urgency=low
+
+  * MAFW, pre-release 0.2009.11-4
+  * Fixes: NB#104430 - Seek bar thumb doesn't return to home position after video playback completion
+  * Fixes: NB#102957 - 'Play URI'  option from menu doesn't open completely
+
+ -- Juha Kellokoski <ext-juha.kellokoski@nokia.com>  Wed, 11 Mar 2009 09:10:01 +0200
+
+mafw-test-gui (0.1.2009.11-3) unstable; urgency=low
+
+  * MAFW, pre-release 0.2009.11-3
+
+ -- Juha Kellokoski <ext-juha.kellokoski@nokia.com>  Tue, 10 Mar 2009 09:12:41 +0200
+
+mafw-test-gui (0.1.2009.11-1) unstable; urgency=low
+
+  * MAFW, pre-release 0.2009.11-1
+  * Update volume bar if volume is changed.
+
+ -- Juha Kellokoski <ext-juha.kellokoski@nokia.com>  Thu, 05 Mar 2009 14:43:54 +0200
+
+mafw-test-gui (0.1.2009.10-1) unstable; urgency=low
+
+  * MAFW, pre-release 0.2009.10-1
+  * Fixes: NB#87360   Video is not displayed properly in the Metadata
+  * Fixes: NB#96151   Video clip is not rendered in full screen when it is tapped  in video pulg in area
+
+ -- Juha Kellokoski <ext-juha.kellokoski@nokia.com>  Thu, 26 Feb 2009 14:06:24 +0200
+
+mafw-test-gui (0.1.2009.9-1) unstable; urgency=low
+
+  * MAFW, pre-release 0.2009.09-1
+  * Fixes: NB#100078
+  * Fixes: NB#101207
+  * Hack to set mafw-gst-renderer property to true to get the
+    current frame on pause in mafw-test-gui.
+  * Replace deprecated glade by gtk-builder.
+
+ -- Juha Kellokoski <ext-juha.kellokoski@nokia.com>  Thu, 19 Feb 2009 17:54:00 +0200
+
+mafw-test-gui (0.1.2009.04-1) unstable; urgency=low
+
+  * MAFW, pre-release 0.2009.04-1
+  * Fixes: NB#97767
+  * Reducing lintian warnings.
+  * Testing queue suddenly didn't like user/multimedia section in debian/control,
+    so changed to misc.
+  * Bugfix for dup_playlist
+
+ -- Mika Tapojärvi <ext-mika.tapojarvi@nokia.com>  Fri, 16 Jan 2009 15:11:27 +0200
+
+mafw-test-gui (0.1.2009.03-1) unstable; urgency=low
+
+  * MAFW, pre-release 0.1.2009.03-1
+  * Version numbers updated for enabling testing runs.
+  * dup_playlist
+  * -wall
+
+ -- Mika Tapojärvi <ext-mika.tapojarvi@nokia.com>  Fri, 09 Jan 2009 15:48:43 +0200
+
+mafw-test-gui (0.1.2008.52-1) unstable; urgency=low
+
+  * Renamed midas to mafw
+
+ --  Zeeshan Ali <zeeshan.ali@nokia.com>  Mon, 22 Dec 2008 12:55:59 +0200
+
+midas-test-gui (0.1.2008.52) unstable; urgency=low
+
+  * Fixes: NB#95915	Space is displayed as %20 in both clip name and folder name while importing play list format
+  * Fixes: NB#86689	Midas-test-gui crashing when playlist containing >1000 items
+  * Fixes: NB#92122	"No playlists selected " info note is displaying while creating and deleting playlist
+  * Fixes: NB#94008	All container's icon becomes changing in a particular scenario
+  * Fixes: NB#94635	First song in the imported Playlist is played without any pointer
+
+ --  Zeeshan Ali <zeeshan.ali@nokia.com>  Mon, 15 Dec 2008 12:55:59 +0200
+
+midas-test-gui (0.1.2008.51-1) unstable; urgency=low
+
+  * volume related fix
+
+ --  Zeeshan Ali <zeeshan.ali@nokia.com>  Mon, 15 Dec 2008 12:55:59 +0200
+
+midas-test-gui (0.1.2008.51) unstable; urgency=low
+
+  * In development.
+
+ --  Zeeshan Ali <zeeshan.ali@nokia.com>  Fri, 12 Dec 2008 14:57:37 +0200
+
+midas-test-gui (0.1.2008.49) unstable; urgency=low
+
+  * In development.
+
+ --  Zeeshan Ali <zeeshan.ali@nokia.com>  Fri, 28 Nov 2008 14:35:35 +0200
+
+midas-test-gui (0.1.2008.48) unstable; urgency=low
+
+  * Fixes: NB#91302	playlist items are displayed in reverse order when imported in different methods
+  * Fixes: NB#92122	""No playlists selected "" info note is displaying while creating and deleting playlist
+  * Fixes: NB#92859	Selected song is not played in playlist for the first time
+  * Fixes: NB#92994	Seekbar position getting changed after playback finish
+
+ --  Zeeshan Ali <zeeshan.ali@nokia.com>  Fri, 21 Nov 2008 16:59:53 +0200
+
+midas-test-gui (0.1.2008.47) unstable; urgency=low
+
+  * Fixes: NB#91597	midas-test-gui source is nokia-closed
+  * Fixes: NB#91777	Midas Test Gui crashing due to signal 6 while clear playback from Playlists
+  * Fixes: NB#92081	""Resume: Operation not allowed in transition state"" info note is displaying in a particular scenario
+  * Fixes: NB#92196	MTG hangs up while trying to access  'show playing order' from menu
+
+ --  Zeeshan Ali <zeeshan.ali@nokia.com>  Fri, 14 Nov 2008 12:30:41 +0200
+
+midas-test-gui (0.1.2008.46) unstable; urgency=low
+
+  * Fixes: NB#89572	unknown category not displayed in MTG
+
+ --  Zeeshan Ali <zeeshan.ali@nokia.com>  Fri, 07 Nov 2008 11:58:32 +0200
+
+midas-test-gui (0.1.2008.45) unstable; urgency=low
+
+  * do not set the current-frame-on-pause property to TRUE by default
+
+ --  Zeeshan Ali <zeeshan.ali@nokia.com>  Fri, 31 Oct 2008 14:14:16 +0200
+
+midas-test-gui (0.1.2008.44) unstable; urgency=low
+
+  * Fixes: NB#88947	URI metadata information not displayed in sink for iradio bookmark
+
+ --  Zeeshan Ali <zeeshan.ali@nokia.com>  Fri, 24 Oct 2008 10:11:52 +0300
+
+midas-test-gui (0.1.2008.43) unstable; urgency=low
+
+  * Renaming sink->renderer
+
+ --  Zeeshan Ali <zeeshan.ali@nokia.com>  Fri, 17 Oct 2008 15:03:14 +0300
+
+midas-test-gui (0.1.2008.42) unstable; urgency=low
+
+  * In development.
+
+ --  Zeeshan Ali <zeeshan.ali@nokia.com>  Fri, 10 Oct 2008 15:33:21 +0300
+
+midas-test-gui (0.1.2008.40) unstable; urgency=low
+
+  * Browsing related performance improvements.
+  * Fixes: NB#88660	all sources crash when metadata source is accessed
+
+ --  Zeeshan Ali <zeeshan.ali@nokia.com>  Mon, 29 Sep 2008 07:02:28 +0000
+
+midas-test-gui (0.1.2008.39) unstable; urgency=low
+
+  * Added playlist importing feature.
+  * Browsing related performance optimizations
+    (optionally detached and/or cached model).
+
+ --  Zeeshan Ali <zeeshan.ali@nokia.com>  Sun, 21 Sep 2008 18:35:06 +0300
+
+midas-test-gui (0.1.2008.38) unstable; urgency=low
+
+  * In development.
+
+ --  Zeeshan Ali <zeeshan.ali@nokia.com>  Mon, 15 Sep 2008 08:11:12 +0300
+
+midas-test-gui (0.1.2008.37) unstable; urgency=low
+
+  * Fixes: NB#87371	Audio stuttering when source is browsed with playback going on
+
+ --  Zeeshan Ali <zeeshan.ali@nokia.com>  Mon, 08 Sep 2008 08:37:04 +0300
+
+midas-test-gui (0.1.2008.36) unstable; urgency=low
+
+  * Fixes: NB#87632	URI's to be displayed if title is missing in playlist when added from Iradio source
+
+ --  Zeeshan Ali <zeeshan.ali@nokia.com>  Mon, 01 Sep 2008 08:21:43 +0300
+
+midas-test-gui (0.1.2008.35) unstable; urgency=low
+
+  * Fixes: NB#86689	MTG hangs when playlist containing >1000 items
+
+ --  Zeeshan Ali <zeeshan.ali@nokia.com>  Sun, 24 Aug 2008 19:42:40 +0300
+
+midas-test-gui (0.1.2008.34) unstable; urgency=low
+
+  * Fixes: NB#87347	Video full screen can be retrived while the audio file is playing.
+  * Fixes: NB#87476	test gui crashes on random multiple browse operations
+  * Fixes: NB#87236	Title name is not displayed properly
+  * Fixes: NB#87520	Adding files using hardkeys adds same clips to the playlist n local source view
+  * Fixes: NB#86964	GlIb critical generated when iradio source is accessed with no bookmarked items
+  * Fixes: NB#87454	Playlist is not refreshed when switched between the playlists
+  * Fixes: NB#87374	Multiple pointer are visible in the playlist content area of MTG
+  * Fixes: NB#87422	Unicode characters are not displayed properly when viewed using 'show item's metadata'
+
+ --  Zeeshan Ali <zeeshan.ali@nokia.com>  Fri, 15 Aug 2008 09:48:16 +0300
+
+midas-test-gui (0.1.2008.33) unstable; urgency=low
+
+  * Initial release.
+  * Fixes: NB#86018	Sink combobox keeps showing not alive sinks
+  * Fixes: NB#86977	playlist items not listed after device reboot
+  * Fixes: NB#87159	Volume level doesnt reach 100% of maximum
+  * Fixes: NB#87348	Playlist content is visible even after deleting the playlist.
+  * Fixes: NB#85902	Test gui crashes when mute is pressed
+  * Fixes: NB#86673	testgui crashes when content is played via 'play selected object'
+  * Fixes: NB#85890	playlist editing stops playback
+  * Fixes: NB#86108	test-gui crashes when playlist accessed from unavailable dynamic source
+  * Fixes: NB#86201	glib criticals found while accessing SMB sources
+  * Fixes: NB#86950	volume setting not preserved after application restart
+  * Fixes: NB#85886	'Artist' metadata missing from UPnP source
+  * Fixes: NB#85895	Items are inserted in wrong order
+  * Fixes: NB#85905	Playlist can be saved without a name
+  * Fixes: NB#85906	Playlist name duplication is allowed
+  * Fixes: NB#86988	test-gui crashes when playing the first playlist item, after deleting an item from playlist
+  * Fixes: NB#86006	Unable to list the media content in test-gui
+  * Fixes: NB#86078	blank entry created when source folder is added to playlist
+  * Fixes: NB#86153	volume operation works in reverse
+  * Fixes: NB#86162	media continues to play when test-gui is closed
+  * Fixes: NB#87147	bookmarks not saved in iradio source in first try
+  * Fixes: NB#87173	fast fwd and rewind option are not implemented
+
+ --  Zeeshan Ali <zeeshan.ali@nokia.com>  Sun, 10 Aug 2008 19:52:39 +0300

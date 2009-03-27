@@ -1,0 +1,22 @@
+Source: mafw-test-gui
+Section: misc
+Priority: optional
+Maintainer: Mika Tapojärvi <ext-mika.tapojarvi@nokia.com>
+Build-Depends: debhelper (>= 4.0.0), libglib2.0-dev, libgtk2.0-dev (>= 2.10),
+               libhildon1-dev, libmafw0-dev (>= 0.1), libmafw-shared0-dev,
+               libgconf2-dev
+Standards-Version: 3.7.2
+
+Package: mafw-test-gui
+Architecture: any
+Section: misc
+Depends: gconf2, ${shlibs:Depends}, ${misc:Depends}
+Description: GUI for testing MAFW
+ MAFW based tester's toy.
+
+Package: mafw-test-gui-dbg
+Architecture: any
+Depends: mafw-test-gui (= ${binary:Version})
+Priority: extra
+Description: debug symbols for mafw-test-gui
+ Symbols for mafw-test-gui, a MAFW-based tester's toy.

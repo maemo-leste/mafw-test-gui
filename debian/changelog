@@ -1,12 +1,20 @@
+mafw-test-gui (0.1.2009.14-2) unstable; urgency=low
+
+  * MAFW, pre-release 0.2009.14-2
+
+ -- Juha Kellokoski <veitikka6@gmail.com>  Fri, 27 Mar 2009 09:30:00 +0200
+
+mafw-test-gui (0.1.2009.14-1) unstable; urgency=low
+
+  * MAFW, pre-release 0.2009.14-1
+  * Fixes: NB#94200 - media play back doesnt begin within 1 second
+
+ -- Juha Kellokoski <veitikka6@gmail.com>  Fri, 27 Mar 2009 09:30:00 +0200
+
 mafw-test-gui (0.1.2009.13-5) unstable; urgency=low
 
   * MAFW, pre-release 0.2009.13-5
-
- -- Juha Kellokoski <ext-juha.kellokoski@nokia.com>  Wed, 25 Mar 2009 09:16:45 +0200
-
-mafw-test-gui (0.1.2009.13-4) unstable; urgency=low
-
-  * MAFW, pre-release 0.2009.13-4
+  * Revert "Set Visa as integrator." This reverts commit r20599.
   * Removed timer use from renderer get_position
   * Changed API to return gint instead if guint in the get_position
     callback
@@ -14,6 +22,12 @@ mafw-test-gui (0.1.2009.13-4) unstable; urgency=low
   * Upgrade copyright year.
   * Add headers for Makefile.am and configure.ac files.
   * Set Visa Smolander as the contact person in headers.
+
+ -- Juha Kellokoski <ext-juha.kellokoski@nokia.com>  Thu, 26 Mar 2009 09:53:00 +0200
+
+mafw-test-gui (0.1.2009.13-4) unstable; urgency=low
+
+  * MAFW, pre-release 0.2009.13-4
 
  -- Juha Kellokoski <ext-juha.kellokoski@nokia.com>  Wed, 25 Mar 2009 09:16:45 +0200
 

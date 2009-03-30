@@ -1,13 +1,19 @@
+mafw-test-gui (0.1.2009.14-3) unstable; urgency=low
+
+  * MAFW, pre-release 0.2009.14-3
+
+ -- Juha Kellokoski <veitikka6@gmail.com>  Mon, 30 Mar 2009 09:23:13 +0200
+
 mafw-test-gui (0.1.2009.14-2) unstable; urgency=low
 
   * MAFW, pre-release 0.2009.14-2
+  * Fixes: NB#94200 - media play back doesnt begin within 1 second
 
- -- Juha Kellokoski <veitikka6@gmail.com>  Fri, 27 Mar 2009 09:30:00 +0200
+ -- Juha Kellokoski <veitikka6@gmail.com>  Mon, 30 Mar 2009 09:23:13 +0200
 
 mafw-test-gui (0.1.2009.14-1) unstable; urgency=low
 
   * MAFW, pre-release 0.2009.14-1
-  * Fixes: NB#94200 - media play back doesnt begin within 1 second
 
  -- Juha Kellokoski <veitikka6@gmail.com>  Fri, 27 Mar 2009 09:30:00 +0200
 

@@ -389,9 +389,18 @@ set_position_hscale_duration (gint duration)
 		{
 			gtk_widget_set_sensitive(position_hscale, TRUE);
 		}
+		g_signal_handlers_block_by_func
+			(position_hscale,
+			 on_position_hscale_value_changed,
+			 NULL);
                 gtk_range_set_range (GTK_RANGE (position_hscale),
                                      0.0,
                                      duration+1);
+		g_signal_handlers_unblock_by_func
+			(position_hscale,
+			 on_position_hscale_value_changed,
+			 NULL);
+
         }
 	else
 	{

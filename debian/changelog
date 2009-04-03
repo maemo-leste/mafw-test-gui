@@ -1,8 +1,19 @@
-mafw-test-gui (0.1.2009.14-4) unstable; urgency=low
+mafw-test-gui (0.1.2009.15-2) unstable; urgency=low
 
-  * MAFW, pre-release 0.2009.14-4
+  * MAFW, pre-release 0.2009.15-2
 
- -- Juha Kellokoski <veitikka6@gmail.com>  Mon, 31 Mar 2009 09:20:00 +0200
+ -- Juha Kellokoski <veitikka6@gmail.com>  Fri, 03 Apr 2009 09:17:14 +0300
+
+mafw-test-gui (0.1.2009.15-1) unstable; urgency=low
+
+  * MAFW, pre-release 0.2009.15-1
+  * Fixes: NB#108781 - Set position: operation not allowed in transitioning state message displayed when playing new clip in playlist
+  * Disable value-changed handlers for seekbar when
+    setting the duration of the current stream, to prevent value-changed
+    signals being emitted due to the need to adjust the seekbar value to 
+    fit in the new range on EOS, when moving to a new (shorter) stream.
+
+ -- Juha Kellokoski <veitikka6@gmail.com>  Fri, 03 Apr 2009 09:17:14 +0300
 
 mafw-test-gui (0.1.2009.14-3) unstable; urgency=low
 

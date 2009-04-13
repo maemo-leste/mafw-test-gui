@@ -958,14 +958,8 @@ metadata_cb (MafwSource* self, const gchar* objectid, GHashTable *metadata,
 	}
 	else
 	{
-		gchar* msg;
-		msg = g_strdup_printf("Unable to update metadata for item "
-				      "%s: item is no longer in the model",
-				      objectid);
-		hildon_banner_show_information (NULL,
-						"qgn_list_smiley_angry",
-						msg);
-		g_free(msg);
+		/* Too late, the item is not in the view now, no need 
+                   to update anything. */
 	}
 }
 

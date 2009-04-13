@@ -620,6 +620,14 @@ void on_playling_order_close_clicked(GtkButton *button, gpointer   user_data)
 	gtk_widget_hide(dialog);
 }
 
+gboolean on_delete_playing_order_dialog_event(GtkWidget *widget,
+					      GdkEvent  *event,
+					      gpointer   user_data)
+{
+        gtk_widget_hide(widget);
+        return TRUE;
+}
+
 static GtkTreeModel *plorder_model;
 
 
@@ -638,6 +646,12 @@ on_show_playing_order(GtkMenuItem* item, gpointer user_data)
 	GtkTreeIter iter;
 	gchar *cur_title;
 	GtkTreeViewColumn *column;
+
+	g_signal_connect(G_OBJECT(dialog),
+			 "delete-event",
+			 G_CALLBACK(on_delete_playing_order_dialog_event),
+			 NULL);
+
 
 	if (!pl)
 		return;

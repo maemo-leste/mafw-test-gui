@@ -51,7 +51,9 @@ gboolean on_delete_uri_dialog_event (GtkWidget *widget,
 		                     GdkEvent  *event,
 		                     gpointer   user_data);
 void on_playling_order_close_clicked(GtkButton *button, gpointer   user_data);
-
+gboolean on_delete_playing_order_dialog_event(GtkWidget *widget,
+					      GdkEvent  *event,
+					      gpointer   user_data);
 gboolean
 on_delete_event (GtkWidget *widget,
                  GdkEvent  *event,

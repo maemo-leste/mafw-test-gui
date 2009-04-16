@@ -1,3 +1,21 @@
+mafw-test-gui (0.1.2009.17-2) unstable; urgency=low
+
+  * Version increased.
+
+ -- Mika Tapojärvi <ext-mika.tapojarvi@nokia.com>  Thu, 16 Apr 2009 11:06:19 +0300
+
+mafw-test-gui (0.1.2009.17-1) unstable; urgency=low
+
+  * MAFW Test GUI, pre-release 0.2009.17-1
+  * Fixes: NB#110304 - MAFW Test GUI window does not show its playing items
+  * Fixes: NB#110725 - 'Unable to update metadata for item' info note displayed for 'Go up' operation
+  * Fixes: NB#110733 -  Unable to play the item from proxy playlist after clear the playlist
+  * Fixed a compilation warning.
+  * No need to show an info note when we get metadata for an item that's 
+    not in the view, just ignoring this is ok.
+
+ -- Mika Tapojärvi <mika.tapojarvi@sse.fi>  Wed, 15 Apr 2009 16:02:30 +0300
+
 mafw-test-gui (0.1.2009.15-2) unstable; urgency=low
 
   * MAFW, pre-release 0.2009.15-2

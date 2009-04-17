@@ -6,7 +6,7 @@
 # Copyright (C) 2007, 2008, 2009 Nokia. All rights reserved.
 
 AC_PREREQ(2.53)
-AC_INIT(mafw-test-gui, 0.1.2009.17-1, http://www.maemo.org/)
+AC_INIT(mafw-test-gui, 0.1.2009.17-2, http://www.maemo.org/)
 AM_INIT_AUTOMAKE()
 AC_CONFIG_SRCDIR(src/main.c)
 AM_CONFIG_HEADER(config.h)

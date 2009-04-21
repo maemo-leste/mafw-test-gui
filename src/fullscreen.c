@@ -105,14 +105,6 @@ on_key_press_event (GtkWidget* widget, GdkEventKey* event, gpointer user_data)
 		next();
 		break;
 
-	case HILDON_HARDKEY_INCREASE:
-		change_volume(1);
-		break;
-
-	case HILDON_HARDKEY_DECREASE:
-		change_volume(-1);
-		break;
-
 	default:
 		retval = FALSE;
 		break;

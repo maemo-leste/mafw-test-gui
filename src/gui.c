@@ -887,14 +887,6 @@ on_main_win_keypress (GtkWidget* widget, GdkEventKey* event, gpointer user_data)
 			mwin_fullscreen = !mwin_fullscreen;
 			return TRUE;
 
-		case HILDON_HARDKEY_INCREASE:
-			change_volume(1);
-			break;
-
-		case HILDON_HARDKEY_DECREASE:
-			change_volume(-1);
-			break;
-
 		case HILDON_HARDKEY_LEFT:
 		case HILDON_HARDKEY_RIGHT:
 			if (playlist_has_focus())

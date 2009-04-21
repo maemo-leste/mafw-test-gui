@@ -283,21 +283,6 @@ set_volume_vscale (guint volume)
                                            NULL);
 }
 
-void change_volume(gint multipler)
-{
-	gdouble current_stat = gtk_range_get_value(GTK_RANGE(volume_vscale));
-	current_stat += (gdouble)(multipler*10);
-	if (current_stat < 0.0)
-	{
-		current_stat = 0.0;
-	}
-	if (current_stat > 100.0)
-	{
-		current_stat = 100.0;
-	}
-	gtk_range_set_value (GTK_RANGE (volume_vscale), current_stat);
-}
-
 void
 on_previous_button_clicked (GtkButton *button,
                             gpointer   user_data)

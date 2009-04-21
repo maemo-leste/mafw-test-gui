@@ -40,7 +40,6 @@ void prepare_controls_for_state(MafwPlayState state);
 void toggle_mute_button(gboolean new_state);
 void update_mute_button(void);
 void set_volume_vscale(guint volume);
-void change_volume(gint multipler);
 void move_position(gint multipler);
 void stop(void);
 void set_position_hscale_duration(gint duration);

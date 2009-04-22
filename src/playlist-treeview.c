@@ -41,9 +41,6 @@ static gint playing_index = -1;
 static gpointer last_playlist_md_id = NULL;
 static gboolean update_current_idx;
 
-static gboolean update_playlist_item_metadata(GtkTreeRowReference *reference,
-					      gchar *object_id);
-
 /*****************************************************************************
  * Playlist structure
  *****************************************************************************/
@@ -191,9 +188,161 @@ clear_current_playlist_treeview (void)
 	gtk_list_store_clear (GTK_LIST_STORE (playlist_model));
 }
 
+static GPtrArray *pl_get_mds;
+static guint playlist_updater_id;
+
+struct pl_get_mds_data {
+	gint from;
+	gint to;
+	gpointer get_md_id;
+};
+
+static void pl_get_md_cb(MafwPlaylist *pls,
+				       guint index,
+				       const gchar *object_id,
+				       GHashTable *metadata,
+				       struct pl_get_mds_data *pldat)
+{
+	GtkTreeIter iter;
+	GValue *value;
+	gchar *title;
+	gboolean from_uri = FALSE;
+
+	if (!gtk_tree_model_iter_nth_child (playlist_model, &iter, NULL, index))
+		return;
+		
+	/* Attempt to extract a sane title for the item */
+	value = mafw_metadata_first(metadata, MAFW_METADATA_KEY_TITLE);
+	if (value == NULL)
+	{
+		value = mafw_metadata_first(metadata, MAFW_METADATA_KEY_URI);
+		from_uri = TRUE;
+	}
+	if (value == NULL)
+		title = g_strdup("Unknown");
+	else
+	{
+		if (from_uri)
+			title = g_uri_unescape_string(g_value_get_string(value),
+                                                      NULL);
+		else
+			title = g_strdup(g_value_get_string(value));
+	}
+
+	/* Update the item's title */
+	gtk_list_store_set (GTK_LIST_STORE (playlist_model), &iter,
+				    COLUMN_OBJECTID, object_id,
+				    COLUMN_TITLE, title,
+				    -1);
+	g_free(title);
+}
+
+static void pl_get_md_finished(struct pl_get_mds_data *pldat)
+{
+	g_ptr_array_remove(pl_get_mds, pldat);
+	g_free(pldat);
+}
+
+static void get_playlist_mds(MafwPlaylist *current_playlist, gint from, gint to)
+{
+	gpointer pl_get_md_id;
+	struct pl_get_mds_data *pldat = g_new0(struct pl_get_mds_data, 1);
+
+	pl_get_md_id = mafw_playlist_get_items_md(current_playlist,
+							from, to,
+				MAFW_SOURCE_LIST(MAFW_METADATA_KEY_TITLE,
+						     MAFW_METADATA_KEY_URI),
+					(MafwPlaylistGetItemsCB)pl_get_md_cb,
+					pldat,
+					(GDestroyNotify)pl_get_md_finished);
+	if (!pl_get_mds)
+		pl_get_mds = g_ptr_array_new();
+	
+	pldat->from = from;
+	pldat->to = to;
+	pldat->get_md_id = pl_get_md_id;
+	g_ptr_array_add(pl_get_mds, pldat);
+
+}
+
+static gboolean playlist_updater(gpointer data)
+{
+	MafwPlaylist *current_playlist;
+	GtkTreeIter iter;
+	gint i = 0;
+	gint from=-1, to=-1;
+
+	current_playlist = MAFW_PLAYLIST(get_current_playlist ());
+        if (current_playlist == NULL)
+	{
+		goto updater_exit;
+	}
+	
+	if (!gtk_tree_model_get_iter_first(playlist_model, &iter))
+		goto updater_exit;
+
+	do
+	{
+		gchar *cur_oid;
+		
+		gtk_tree_model_get(playlist_model, &iter,
+			    COLUMN_OBJECTID, &cur_oid,
+			    -1);
+		if (cur_oid)
+		{
+			if (from != -1)
+			{
+				to = i;
+				get_playlist_mds(current_playlist, from, to);
+				from = -1;
+			}
+			g_free(cur_oid);
+		}
+		else
+		{
+			if (from == -1)
+				from = i;
+		}
+		i++;
+
+	} while (gtk_tree_model_iter_next(playlist_model, &iter));
+	if (from != -1)
+	{
+		to = i-1;
+		get_playlist_mds(current_playlist, from, to);
+	}
+updater_exit:
+	playlist_updater_id = 0;
+	return FALSE;
+}
+
 /*****************************************************************************
  * Mafw signal handlers for the current playlist
  *****************************************************************************/
+
+/**
+ * Checks whether there is an ongoing playlist_get_items_md req, in the given range.
+ */
+static gboolean check_md_reqs(guint from, guint to)
+{
+	gint i = 0;
+	
+	if (!pl_get_mds)
+		return FALSE;
+	for (i = 0; pl_get_mds->len > i; i++)
+	{
+		struct pl_get_mds_data *pldat = g_ptr_array_index(pl_get_mds, i);
+		
+		if (!pldat)
+			continue;
+		if (pldat->from <= to && pldat->to >= from)
+		{
+			mafw_playlist_cancel_get_items_md(pldat->get_md_id);
+			return TRUE;
+		}
+	}
+	return FALSE;
+}
 
 void
 on_mafw_playlist_contents_changed(MafwPlaylist *playlist, guint from,
@@ -202,7 +351,6 @@ on_mafw_playlist_contents_changed(MafwPlaylist *playlist, guint from,
 	MafwPlaylist *current_playlist;
 	GtkTreeIter iter;
 	guint i;
-	gchar **oids;
 
 	mtg_print_signal_gen (mafw_playlist_get_name (
 				      MAFW_PLAYLIST (playlist)),
@@ -227,6 +375,13 @@ on_mafw_playlist_contents_changed(MafwPlaylist *playlist, guint from,
 		return;
 	}
 
+	if (nremoved && check_md_reqs(from, from + nremoved) &&
+			playlist_updater_id == 0)
+		playlist_updater_id = g_idle_add(playlist_updater, NULL);
+	if (nreplaced && check_md_reqs(from, from + nreplaced) &&
+			playlist_updater_id == 0)
+		playlist_updater_id = g_idle_add(playlist_updater, NULL);
+
 	/* Remove first */
 	if (gtk_tree_model_iter_nth_child (playlist_model, &iter, NULL, from))
 	{
@@ -236,9 +391,12 @@ on_mafw_playlist_contents_changed(MafwPlaylist *playlist, guint from,
 				    GTK_LIST_STORE (playlist_model), &iter)
 			    == FALSE)
 			{
-				g_warning ("i != nremoved -1, probably " \
+				if (i != nremoved - 1)
+					g_warning ("%d != %d -1, probably " \
 					   "the playlist was cleared before " \
-					   "populating all its contents ");
+					   "populating all its contents ", i, nremoved);
+				playing_index = -1;
+				break;
 			}
 
 			if (playing_index >= from + i)
@@ -246,25 +404,16 @@ on_mafw_playlist_contents_changed(MafwPlaylist *playlist, guint from,
 		}
 	}
 
-	if (nreplaced > 0 && (oids = mafw_playlist_get_items(playlist, 
-							from, from + nreplaced-1,
-							NULL)))
+	if (nreplaced > 0)
 	{
 		/* Then insert */
 		for (i = 0; i < nreplaced; i++)
 		{
-			GtkTreeRowReference *ref;
-			GtkTreePath *path;
-			gchar *oid;
-	
-			oid = oids[i];
-	
 			/* Make it the $from + $i:th item in the list. */
 			gtk_list_store_insert (GTK_LIST_STORE(playlist_model),
 					       &iter, from + i);
 			gtk_list_store_set (GTK_LIST_STORE (playlist_model), &iter,
 					    COLUMN_INDEX, from + i,
-					    COLUMN_OBJECTID, oid,
 					    -1);
 	
 			/* If the insertion happened before the currently playing
@@ -272,14 +421,11 @@ on_mafw_playlist_contents_changed(MafwPlaylist *playlist, guint from,
 			if (playing_index >= from + i)
 				playing_index++;
 	
-			/* Get a reference to the inserted row */
-			path = gtk_tree_model_get_path(playlist_model, &iter);
-			ref = gtk_tree_row_reference_new(playlist_model, path);
-			gtk_tree_path_free(path);
-	
-			update_playlist_item_metadata(ref, oid);
 		}
-		g_free(oids);
+		if (playlist_updater_id == 0)
+		{
+			playlist_updater_id = g_idle_add(playlist_updater, NULL);
+		}
 	}
 	/* Refresh the indicies */
 	if (gtk_tree_model_iter_nth_child (playlist_model, &iter, NULL, from))
@@ -352,104 +498,6 @@ on_mafw_playlist_item_moved (MafwPlaylist *playlist, guint from, guint to)
 	{
 		playing_index++;
 	}
-}
-
-static void playlist_item_metadata_cb(MafwSource* source,
-				      const gchar* object_id,
-				      GHashTable *metadata,
-				      gpointer user_data,
-				      const GError *error)
-{
-	GtkTreeIter iter;
-	GValue *value;
-	gchar *title;
-	GtkTreeRowReference *ref;
-	GtkTreePath *path;
-	gboolean from_uri = FALSE;
-
-	if (error != NULL)
-	{
-		g_print("Error: %s\n", error->message);
-		return;
-	}
-
-	/* Check that the tree row exists */
-	ref = (GtkTreeRowReference*) user_data;
-	if (gtk_tree_row_reference_valid(ref) == FALSE)
-	{
-		gtk_tree_row_reference_free(ref);
-		return;
-	}
-
-	/* Convert the tree row reference into a tree path */
-	path = gtk_tree_row_reference_get_path(ref);
-	gtk_tree_row_reference_free(ref);
-	if (path == NULL)
-		return;
-
-	/* Attempt to extract a sane title for the item */
-	value = mafw_metadata_first(metadata, MAFW_METADATA_KEY_TITLE);
-	if (value == NULL)
-	{
-		value = mafw_metadata_first(metadata, MAFW_METADATA_KEY_URI);
-		from_uri = TRUE;
-	}
-	if (value == NULL)
-		title = g_strdup("Unknown");
-	else
-	{
-		if (from_uri)
-			title = g_uri_unescape_string(g_value_get_string(value),
-                                                      NULL);
-		else
-			title = g_strdup(g_value_get_string(value));
-	}
-
-	/* Update the item's title */
-	if (gtk_tree_model_get_iter(playlist_model, &iter, path) == TRUE)
-	{
-		gtk_list_store_set (GTK_LIST_STORE (playlist_model), &iter,
-				    COLUMN_TITLE, title,
-				    -1);
-	}
-	g_free(title);
-	gtk_tree_path_free(path);
-}
-
-static gboolean
-update_playlist_item_metadata(GtkTreeRowReference *reference, gchar *object_id)
-{
-	MafwRegistry *registry;
-	MafwSource *source;
-	gchar *uuid;
-
-	g_return_val_if_fail (object_id != NULL, FALSE);
-
-	if (mafw_source_split_objectid (object_id, &uuid, NULL) == FALSE)
-	{
-		gtk_tree_row_reference_free(reference);
-		return FALSE;
-	}
-
-	registry = MAFW_REGISTRY (mafw_registry_get_instance ());
-	g_assert (registry != NULL);
-
-	source = MAFW_SOURCE (mafw_registry_get_extension_by_uuid (registry,
-								uuid));
-	g_free(uuid);
-	if (source == NULL)
-	{
-		gtk_tree_row_reference_free(reference);
-		return FALSE;
-	}
-
-	mafw_source_get_metadata (source, object_id,
-				   MAFW_SOURCE_LIST(MAFW_METADATA_KEY_TITLE,
-						     MAFW_METADATA_KEY_URI),
-				   playlist_item_metadata_cb,
-				   reference);
-
-	return TRUE;
 }
 
 void

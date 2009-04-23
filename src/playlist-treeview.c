@@ -38,7 +38,6 @@ static GtkWidget *playlist_treeview = NULL;
 static GtkTreeModel *playlist_model = NULL;
 
 static gint playing_index = -1;
-static gpointer last_playlist_md_id = NULL;
 static gboolean update_current_idx;
 
 /*****************************************************************************
@@ -53,74 +52,31 @@ enum {
 	COLUMNS
 };
 
+static GPtrArray *pl_get_mds;
+static guint playlist_updater_id;
+
+struct pl_get_mds_data {
+	gint from;
+	gint to;
+	gpointer get_md_id;
+};
+
 /*****************************************************************************
  * Playlist contents displaying
  *****************************************************************************/
 
-static void
-playlist_get_items_md_cb(MafwPlaylist *playlist, guint index,
-			 const gchar *object_id, GHashTable *metadata,
-			 gpointer user_data)
+static gboolean playlist_updater(gpointer data);
+
+static void cancel_all_get_mds(void)
 {
-	GtkTreeIter iter;
-	GValue* value = NULL;
-	gchar* title = NULL;
-	gboolean from_uri = FALSE;
-
-	g_assert (playlist != NULL);
-	g_assert (object_id != NULL);
-
-	if (playlist != MAFW_PLAYLIST(get_current_playlist()))
-		return;
-
-
-	/* Attempt to extract a working title for the item */
-	if (metadata != NULL)
+	if (pl_get_mds)
 	{
-		value = mafw_metadata_first (metadata,
-					      MAFW_METADATA_KEY_TITLE);
-		if (value == NULL)
+		guint i = 0;
+		struct pl_get_mds_data *pldat;
+		for (i = 0; (pldat = g_ptr_array_index(pl_get_mds, i)); i++)
 		{
-			value = mafw_metadata_first (metadata,
-						      MAFW_METADATA_KEY_URI);
-			from_uri = TRUE;
+			mafw_playlist_cancel_get_items_md(pldat->get_md_id);
 		}
-	}
-
-	/* If we don't have anything for a title, use "Unknown" */
-	if (value != NULL && G_VALUE_HOLDS_STRING(value))
-	{
-		if (from_uri)
-			title = g_uri_unescape_string(g_value_get_string(value),
-                                                      NULL);
-		else
-			title = g_strdup(g_value_get_string(value));
-
-		if (strcmp(title, "") == 0)
-		{
-			g_free(title);
-			title = g_strdup ("Unknown");
-		}
-	}
-	else
-		title = g_strdup("Unknown");
-
-	/* Insert the item and its data */
-	gtk_list_store_insert (GTK_LIST_STORE(playlist_model), &iter, index);
-	gtk_list_store_set (GTK_LIST_STORE (playlist_model), &iter,
-			    COLUMN_INDEX, index,
-			    COLUMN_OBJECTID, object_id,
-			    COLUMN_TITLE, title,
-			    -1);
-	g_free(title);
-	if (update_current_idx && index == playing_index)
-	{
-		gtk_list_store_set (GTK_LIST_STORE (playlist_model),
-					    &iter,
-					    COLUMN_CURRENT,
-					    GTK_STOCK_GO_FORWARD,
-					    -1);
-		update_current_idx = FALSE;
 	}
 }
 
@@ -128,15 +84,16 @@ void
 display_playlist_contents(MafwPlaylist *playlist)
 {
 	GError* error = NULL;
-	guint size;
+	guint size, i;
+	GtkTreeIter iter;
 
 	g_assert (playlist != NULL);
 
 	/* Cancel any running requests */
-	if (last_playlist_md_id != NULL)
+	if (playlist_updater_id)
 	{
-		mafw_playlist_cancel_get_items_md(last_playlist_md_id);
-		last_playlist_md_id = NULL;
+		g_source_remove(playlist_updater_id);
+		cancel_all_get_mds();
 	}
 
 	update_current_idx = FALSE;
@@ -153,17 +110,21 @@ display_playlist_contents(MafwPlaylist *playlist)
 		g_error_free (error);
 		return;
 	}
+	
+	if (size == 0)
+		return;
 
-	/* Get complete playlist contents */
-	last_playlist_md_id = mafw_playlist_get_items_md (
-		playlist,
-		0,
-		size - 1,
-		MAFW_SOURCE_LIST (MAFW_METADATA_KEY_TITLE,
-				   MAFW_METADATA_KEY_URI),
-		(MafwPlaylistGetItemsCB) playlist_get_items_md_cb,
-		NULL,
-		NULL);
+	for (i = 0; i < size; i++)
+	{
+		gtk_list_store_append(GTK_LIST_STORE(playlist_model), &iter);
+		gtk_list_store_set (GTK_LIST_STORE (playlist_model), &iter,
+					    COLUMN_INDEX, i,
+					    -1);		
+	}
+	if (playlist_updater_id == 0)
+	{
+		playlist_updater_id = g_idle_add(playlist_updater, NULL);
+	}
 }
 
 gchar *treeview_get_stored_title(guint index)
@@ -187,15 +148,6 @@ clear_current_playlist_treeview (void)
 {
 	gtk_list_store_clear (GTK_LIST_STORE (playlist_model));
 }
-
-static GPtrArray *pl_get_mds;
-static guint playlist_updater_id;
-
-struct pl_get_mds_data {
-	gint from;
-	gint to;
-	gpointer get_md_id;
-};
 
 static void pl_get_md_cb(MafwPlaylist *pls,
 				       guint index,

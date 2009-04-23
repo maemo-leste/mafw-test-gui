@@ -1,20 +1,32 @@
-mafw-test-gui (0.1.2009.17-3) unstable; urgency=low
+mafw-test-gui (0.1.2009.18-2) unstable; urgency=low
 
-  * MAFW Test GUI, pre-release 0.2009.17-3
+  * MAFW Test GUI, pre-release 0.2009.18-2
 
- -- Juha Kellokoski <veitikka6@gmail.com>  Fri, 17 Apr 2009 09:18:07 +0300
+ -- Juha Kellokoski <veitikka6@gmail.com>  Thu, 23 Apr 2009 15:30:00 +0300
 
-mafw-test-gui (0.1.2009.17-2) unstable; urgency=low
+mafw-test-gui (0.1.2009.18-1) unstable; urgency=low
 
-  * MAFW Test GUI, pre-release 0.2009.17-2
+  * MAFW Test GUI, pre-release 0.2009.18-1
   * Fixes: NB#104504 - Metadata view does not clear  after playback over
   * Fixes: NB#110469 - ‘There is no media to play’ info note showing for existing playlist items
   * Fixes: NB#110304 - MAFW Test GUI window does not show its playing items
   * Fixes: NB#110725 - 'Unable to update metadata for item' info note displayed for 'Go up' operation
   * Fixes: NB#110733 - Unable to play the item from proxy playlist after clear the playlist
+  * Fixes: NB#112319 - Items of proxy playlist being shuffled after re-launch MTG
+  * Fixes: NB#111854 - Index no getting changing for  Playlist view->Save playlist as
+  * Better playlist-change handling
+  * Removed function to change volume in GUI as it was only used by hardware
+    keys handlers.
+  * Removed hardware keys volume control from GUI as this is done by gst.
   * Fixed a compilation warning.
   * No need to show an info note when we get metadata for an item that's 
     not in the view, just ignoring this is ok.
+
+ -- Juha Kellokoski <veitikka6@gmail.com>  Thu, 23 Apr 2009 15:30:00 +0300
+
+mafw-test-gui (0.1.2009.17-2) unstable; urgency=low
+
+  * MAFW Test GUI, pre-release 0.2009.17-2
 
  -- Juha Kellokoski <veitikka6@gmail.com>  Fri, 17 Apr 2009 09:18:07 +0300
 

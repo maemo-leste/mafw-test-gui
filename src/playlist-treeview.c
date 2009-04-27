@@ -162,24 +162,31 @@ static void pl_get_md_cb(MafwPlaylist *pls,
 
 	if (!gtk_tree_model_iter_nth_child (playlist_model, &iter, NULL, index))
 		return;
-		
+
 	/* Attempt to extract a sane title for the item */
-	value = mafw_metadata_first(metadata, MAFW_METADATA_KEY_TITLE);
-	if (value == NULL)
-	{
-		value = mafw_metadata_first(metadata, MAFW_METADATA_KEY_URI);
-		from_uri = TRUE;
-	}
-	if (value == NULL)
-		title = g_strdup("Unknown");
-	else
-	{
-		if (from_uri)
-			title = g_uri_unescape_string(g_value_get_string(value),
-                                                      NULL);
-		else
-			title = g_strdup(g_value_get_string(value));
-	}
+        if (!metadata)
+                title = g_strdup("Unknown");
+        else
+        {
+                value = mafw_metadata_first(metadata, MAFW_METADATA_KEY_TITLE);
+                if (value == NULL)
+                {
+                        value = mafw_metadata_first(metadata,
+                                                    MAFW_METADATA_KEY_URI);
+                        from_uri = TRUE;
+                }
+                if (value == NULL)
+                        title = g_strdup("Unknown");
+                else
+                {
+                        if (from_uri)
+                                title = g_uri_unescape_string(
+                                        g_value_get_string(value),
+                                        NULL);
+                        else
+                                title = g_strdup(g_value_get_string(value));
+                }
+        }
 
 	/* Update the item's title */
 	gtk_list_store_set (GTK_LIST_STORE (playlist_model), &iter,

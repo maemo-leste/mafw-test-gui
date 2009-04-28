@@ -43,6 +43,7 @@ void set_volume_vscale(guint volume);
 void move_position(gint multipler);
 void stop(void);
 void set_position_hscale_duration(gint duration);
+void set_position_hscale_sensitive(gboolean sensitive);
 void enable_seek_buttons(gboolean enable);
 
 #endif /* __RENDERER_CONTROL_H__ */

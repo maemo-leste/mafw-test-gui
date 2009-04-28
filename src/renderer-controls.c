@@ -366,14 +366,19 @@ on_position_hscale_value_changed (GtkRange *range,
 }
 
 
+void set_position_hscale_sensitive(gboolean sensitive)
+{
+	if (sensitive && in_state_stopped)
+	{
+		return;
+	}
+	gtk_widget_set_sensitive(position_hscale, sensitive);
+}
+
 void
 set_position_hscale_duration (gint duration)
 {
         if (duration > 0) {
-		if (!in_state_stopped)
-		{
-			gtk_widget_set_sensitive(position_hscale, TRUE);
-		}
 		g_signal_handlers_block_by_func
 			(position_hscale,
 			 on_position_hscale_value_changed,
@@ -387,10 +392,6 @@ set_position_hscale_duration (gint duration)
 			 NULL);
 
         }
-	else
-	{
-		gtk_widget_set_sensitive(position_hscale, FALSE);
-	}
 }
 
 static void
@@ -409,22 +410,20 @@ set_position_hscale_position (gint position)
 		gtk_label_set_text(GTK_LABEL(position_label), label_text);
 		g_free(label_text);
 
-		if (GTK_WIDGET_IS_SENSITIVE(position_hscale))
-		{
-			g_signal_handlers_block_by_func
-						(position_hscale,
-						 on_position_hscale_value_changed,
-						 NULL);
+		g_signal_handlers_block_by_func
+					(position_hscale,
+					 on_position_hscale_value_changed,
+					 NULL);
 
-			gtk_range_set_value (GTK_RANGE (position_hscale),
-                                             position);
+		gtk_range_set_value (GTK_RANGE (position_hscale),
+                                     position);
 
-			g_signal_handlers_unblock_by_func
-						(position_hscale,
-						 on_position_hscale_value_changed,
-						 NULL);
-		}
-        }
+		g_signal_handlers_unblock_by_func
+					(position_hscale,
+					 on_position_hscale_value_changed,
+					 NULL);
+	}
+
 }
 
 void move_position(gint multipler)

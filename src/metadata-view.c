@@ -200,11 +200,12 @@ static void add_metadata(const gchar *key, gpointer val, gpointer user_data)
 		if (g_value_get_boolean(cur_val) == TRUE)
 		{
 			enable_seek_buttons(TRUE);
+			set_position_hscale_sensitive(TRUE);
 		}
 		else
 		{
 			enable_seek_buttons(FALSE);
-			set_position_hscale_duration(-1);
+			set_position_hscale_sensitive(FALSE);
 		}
 	}
 
@@ -264,7 +265,7 @@ void mdata_view_mdata_result(MafwSource *self,
 	if (!check_current_object_id(object_id))
 		return;
 
-	set_position_hscale_duration(-1);
+	set_position_hscale_sensitive(FALSE);
 
 	g_hash_table_foreach(metadata, (GHFunc)add_metadata, NULL);
 }

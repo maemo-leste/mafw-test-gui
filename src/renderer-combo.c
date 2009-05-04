@@ -51,6 +51,8 @@ static gchar      *state_labels[] = {"STOPPED",
 				     "PLAYING",
 				     "PAUSED",
 				     "TRANSITIONING"};
+static XID cur_xid = -1;
+
 static void
 toggle_fop (gboolean new_state);
 void
@@ -436,6 +438,8 @@ static void property_changed_cb(MafwExtension *object, const gchar *name,
                         set_volume_vscale(g_value_get_uint(value));
 		else if (!strcmp(name, "current-frame-on-pause"))
 			toggle_fop(g_value_get_boolean(value));
+		else if (!strcmp(name, MAFW_PROPERTY_RENDERER_XID))
+			cur_xid = g_value_get_uint(value);
 	}
 }
 
@@ -589,7 +593,7 @@ void
 set_selected_renderer_xid (XID xid)
 {
 	GValue value = { 0 };
-	static XID cur_xid = -1;
+	
 	
 	if (xid == cur_xid)
 		return;

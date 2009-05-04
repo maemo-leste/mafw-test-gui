@@ -150,7 +150,10 @@ play (void)
 		renderer = get_selected_renderer();
 		if (renderer == NULL)
 			return;
-
+		if (!is_fullscreen_open())
+			set_selected_renderer_xid (get_metadata_visual_xid ());
+		else
+			set_selected_renderer_xid (get_fullscreen_xid ());
 		mafw_renderer_play(renderer, play_error_cb, NULL);
 	} else if (state == Paused) {
 		resume ();

@@ -1,3 +1,18 @@
+mafw-test-gui (0.1.2009.21-3) unstable; urgency=low
+
+  * MAFW Test GUI, pre-release 0.2009.21-3
+  * Fixes: NB#87712 - Video plugin is not activated for streaming links , after playing an audio item
+  * If we do not have mime-type information, use other keys to detect 
+    video (resolution, framerate or video-codec).
+
+ -- Juha Kellokoski <veitikka6@gmail.com>  Tue, 19 May 2009 10:30:00 +0300
+
+mafw-test-gui (0.1.2009.21-2) unstable; urgency=low
+
+  * MAFW Test GUI, pre-release 0.2009.21-2
+
+ -- Juha Kellokoski <veitikka6@gmail.com>  Mon, 18 May 2009 11:00:00 +0300
+
 mafw-test-gui (0.1.2009.21-1) unstable; urgency=low
 
   * MAFW Test GUI, pre-release 0.2009.21-1

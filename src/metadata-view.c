@@ -162,13 +162,13 @@ static void add_metadata(const gchar *key, gpointer val, gpointer user_data)
 		}
 		else
 		{
-			gtk_widget_show(metadata_visual);
+ 			gtk_widget_show(metadata_visual);
 		}
 	}
-
+	
 	/* The source:browse_cb sends the metadata in different way, than the
 	   renderer::metadata-changed signal sends it*/
-	if (!strcmp(key, MAFW_METADATA_KEY_DURATION))
+	else if (!strcmp(key, MAFW_METADATA_KEY_DURATION))
 	{
 		GValue *cur_val;
 
@@ -184,7 +184,7 @@ static void add_metadata(const gchar *key, gpointer val, gpointer user_data)
 
 	}
 
-	if (!strcmp(key, MAFW_METADATA_KEY_IS_SEEKABLE))
+	else if (!strcmp(key, MAFW_METADATA_KEY_IS_SEEKABLE))
 	{
 		GValue *cur_val;
 
@@ -207,6 +207,15 @@ static void add_metadata(const gchar *key, gpointer val, gpointer user_data)
 			enable_seek_buttons(FALSE);
 			set_position_hscale_sensitive(FALSE);
 		}
+	}
+
+	else if (!strcmp(key, MAFW_METADATA_KEY_VIDEO_CODEC) ||
+		 !strcmp(key, MAFW_METADATA_KEY_VIDEO_FRAMERATE) ||
+		 !strcmp(key, MAFW_METADATA_KEY_RES_X) ||
+		 !strcmp(key, MAFW_METADATA_KEY_RES_Y)) {
+		/* Sometimes we get these but no mime type key,
+		   in this case, we have a video anyway */
+		gtk_widget_show(metadata_visual);
 	}
 
 	memset(&strval, 0, sizeof(strval));

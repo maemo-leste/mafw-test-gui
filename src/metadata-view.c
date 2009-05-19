@@ -274,8 +274,6 @@ void mdata_view_mdata_result(MafwSource *self,
 	if (!check_current_object_id(object_id))
 		return;
 
-	set_position_hscale_sensitive(FALSE);
-
 	g_hash_table_foreach(metadata, (GHFunc)add_metadata, NULL);
 }
 
@@ -331,6 +329,13 @@ void set_current_oid(const gchar *obj_id)
 	}
 	else
 	{
+		/* Disable seekbar, and enable only if we 
+		   get seekble=TRUE metadata. Waiting to do this in
+		   mdata_view_mdata_result might end up in
+		   race-condition with the renderer metadata
+		   in certain scenarios */
+		set_position_hscale_sensitive(FALSE);
+
 		mafw_source_get_metadata(
 			 source, current_oid,
 			 MAFW_SOURCE_LIST(MAFW_METADATA_KEY_URI,

@@ -799,8 +799,7 @@ setup_menu (void)
 			       gtk_separator_menu_item_new ());
 
 	/* Attached/detached list model */
-	group = NULL;
-	sub_item = gtk_radio_menu_item_new_with_label (group, "Detached model");
+	sub_item = gtk_radio_menu_item_new_with_label (NULL, "Detached model");
 	group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM (sub_item));
 	gtk_menu_shell_append (GTK_MENU_SHELL (sub_menu), sub_item);
 	g_signal_connect (G_OBJECT (sub_item), "toggled",
@@ -817,7 +816,6 @@ setup_menu (void)
 
 	sub_item = gtk_radio_menu_item_new_with_label (group,
                                                        "Non-optimized model");
-	group = gtk_radio_menu_item_get_group (GTK_RADIO_MENU_ITEM (sub_item));
 	gtk_menu_shell_append (GTK_MENU_SHELL (sub_menu), sub_item);
 	g_signal_connect (G_OBJECT (sub_item), "toggled",
 			  G_CALLBACK (on_normal_model_menu_toggled), NULL);

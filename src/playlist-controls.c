@@ -362,6 +362,39 @@ on_save_playlist_button_clicked (GtkWidget *widget)
         }
 }
 
+void on_renderer_assigned_playlist_changed(MafwPlaylist *playlist)
+{
+	MafwPlaylist *current_playlist;
+	gchar *current_pls_name = NULL;
+	gchar *pls_name = NULL;
+	GtkTreeIter iter;
+
+	if (!playlist) {
+		return;
+	}
+
+	/* Check if the recently assigned playlist is already the current one.
+	 If so, do nothing. */
+	current_playlist = MAFW_PLAYLIST(get_current_playlist());
+	if (current_playlist) {
+		current_pls_name = mafw_playlist_get_name(current_playlist);
+		pls_name = mafw_playlist_get_name(playlist);
+		if (g_strcmp0(current_pls_name, pls_name) == 0) {
+			g_free(current_pls_name);
+			g_free(pls_name);
+			return;
+		}
+	}
+
+	if ((find_playlist_iter(playlist, &iter) == TRUE)) {
+		gtk_combo_box_set_active_iter(
+			GTK_COMBO_BOX(playlist_name_combobox), &iter);
+	}
+
+	g_free(current_pls_name);
+	g_free(pls_name);
+}
+
 /*****************************************************************************
  * Renaming dialog
  *****************************************************************************/

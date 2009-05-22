@@ -36,7 +36,7 @@ void toggle_repeat (gboolean new_state);
 void enable_playlist_buttons(gboolean enable);
 void on_rename_playlist_button_clicked(GtkWidget *widget);
 void on_save_playlist_button_clicked(GtkWidget *widget);
-
+void on_renderer_assigned_playlist_changed(MafwPlaylist *playlist);
 MafwProxyPlaylist* get_current_playlist (void);
 gboolean select_playlist(MafwProxyPlaylist *playlist);
 

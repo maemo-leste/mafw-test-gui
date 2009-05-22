@@ -459,6 +459,13 @@ static void renderer_metadata_changed_cb(MafwRenderer *self, const gchar *key,
 	mdata_view_update(key, value);
 }
 
+static void renderer_playlist_changed_cb(MafwRenderer *self,
+					 MafwPlaylist *playlist,
+					 gpointer user_data)
+{
+	on_renderer_assigned_playlist_changed(playlist);
+}
+
 void
 add_media_renderer (MafwRenderer *renderer)
 {
@@ -484,6 +491,9 @@ add_media_renderer (MafwRenderer *renderer)
                                  NULL);
 		g_signal_connect(renderer, "error",
 				 G_CALLBACK(renderer_error_cb), NULL);
+		g_signal_connect(renderer, "playlist-changed",
+				 G_CALLBACK(renderer_playlist_changed_cb),
+				 NULL);
                 append_media_renderer_to_tree (renderer, uuid);
 	}
 }

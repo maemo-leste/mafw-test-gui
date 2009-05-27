@@ -1,3 +1,11 @@
+mafw-test-gui (0.1.2009.22-2) unstable; urgency=low
+
+  * MAFW Test GUI, pre-release 0.2009.22-2
+  * Fixes: NB#118012 - Metadata information is not getting cleared upon playing invalid URL
+  * Fixes: NB#112615 - Seek bar disabled while playing as ‘play selected URI’
+
+ -- Juha Kellokoski <veitikka6@gmail.com>  Mon, 25 May 2009 12:21:24 +0300
+
 mafw-test-gui (0.1.2009.22-1) unstable; urgency=low
 
   * MAFW Test GUI, pre-release 0.2009.22-1
@@ -8,7 +16,6 @@ mafw-test-gui (0.1.2009.22-1) unstable; urgency=low
 mafw-test-gui (0.1.2009.21-4) unstable; urgency=low
 
   * MAFW Test GUI, pre-release 0.2009.21-4
-  * Fixes: NB#112615 - Seek bar disabled while playing as ‘play selected URI’
   * Disable seekbar before requesting metadata to the
     source, otherwise we can run in a race condition with the renderer
     metadata and override the renderer info.

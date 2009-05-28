@@ -386,7 +386,7 @@ void on_renderer_assigned_playlist_changed(MafwPlaylist *playlist)
 		}
 	}
 
-	if ((find_playlist_iter(playlist, &iter) == TRUE)) {
+	if ((find_playlist_iter(MAFW_PROXY_PLAYLIST(playlist), &iter) == TRUE)) {
 		gtk_combo_box_set_active_iter(
 			GTK_COMBO_BOX(playlist_name_combobox), &iter);
 	}

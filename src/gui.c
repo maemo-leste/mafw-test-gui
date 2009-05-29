@@ -852,12 +852,12 @@ setup_menu (void)
 	item = gtk_menu_item_new_with_label("Bookmark URI");
 	gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
 	g_signal_connect(G_OBJECT(item), "activate",
-			 GTK_SIGNAL_FUNC(on_bookmark_uri_event), NULL);
+			 G_CALLBACK(on_bookmark_uri_event), NULL);
 
 	item = gtk_menu_item_new_with_label("Play URI");
 	gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
 	g_signal_connect(G_OBJECT(item), "activate",
-			 GTK_SIGNAL_FUNC(on_play_uri_event), NULL);
+			 G_CALLBACK(on_play_uri_event), NULL);
 
 	gtk_menu_shell_append (GTK_MENU_SHELL (menu),
 			       gtk_separator_menu_item_new ());
@@ -866,7 +866,7 @@ setup_menu (void)
 	item = gtk_menu_item_new_with_label("Close");
 	gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);
 	g_signal_connect(G_OBJECT(item), "activate",
-			 GTK_SIGNAL_FUNC(on_delete_event), NULL);
+			 G_CALLBACK(on_delete_event), NULL);
 
 	hildon_window_set_menu (HILDON_WINDOW (main_window), GTK_MENU (menu));
 }

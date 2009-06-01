@@ -27,6 +27,22 @@ PKG_CHECK_MODULES(GCONF, gconf-2.0 >= 2.0)
 PKG_CHECK_MODULES(MAFW, mafw >= $MAFW_REQUIRED
 		  mafw-shared >= $MAFW_REQUIRED)
 
+# DISABLED_BY_DEFAULT(NAME, DESCRIPTION)
+# ---------------------------------
+# Creates a new --enable-* option, with default value `no'.
+AC_DEFUN([DISABLED_BY_DEFAULT], [dnl
+         AC_ARG_ENABLE([$1], AS_HELP_STRING([--enable-$1], [$2]), [],[dnl
+         m4_bpatsubst([enable_$1], [[^0-9a-z]], [_])=no])dnl
+])# DISABLED_BY_DEFAULT
+
+# ENABLED_BY_DEFAULT(NAME, DESCRIPTION)
+# ---------------------------------
+# Creates a new --disable-* option, with default value `yes'.
+AC_DEFUN([ENABLED_BY_DEFAULT], [dnl
+         AC_ARG_ENABLE([$1], AS_HELP_STRING([--disable-$1], [$2]), [],[dnl
+         m4_bpatsubst([enable_$1], [[^0-9a-z]], [_])=yes])dnl
+])# ENABLED_BY_DEFAULT
+
 # glib-genmarshal
 GLIB_GENMARSHAL=`pkg-config --variable=glib_genmarshal glib-2.0`
 AC_SUBST(GLIB_GENMARSHAL)

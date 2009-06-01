@@ -36,6 +36,8 @@
 #include "renderer-combo.h"
 #include "fullscreen.h"
 
+#include "config.h"
+
 #define SEC_PER_MIN 60
 #define SEC_PER_HOUR 3600
 
@@ -700,6 +702,10 @@ setup_renderer_controls (GtkBuilder *builder)
 	image = gtk_image_new_from_icon_name ("qgn_medi_volume_muted",
 					      HILDON_ICON_SIZE_SMALL);
 	gtk_button_set_image (GTK_BUTTON (mute_toggle), image);
+
+#ifndef MAFW_TEST_GUI_ENABLE_MUTE
+	gtk_widget_set_sensitive(mute_toggle, FALSE);
+#endif
 
         timeout_id = 0;
 

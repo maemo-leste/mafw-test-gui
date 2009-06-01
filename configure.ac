@@ -66,6 +66,12 @@ fi
 
 AM_CONDITIONAL([UNINSTALLED], [test "x$enable_uninstalled" = "xyes"])
 
+dnl Mute
+DISABLED_BY_DEFAULT([mute], [enable mute handling])
+if test "x$enable_mute" = xyes; then
+	AC_DEFINE([MAFW_TEST_GUI_ENABLE_MUTE], [1], [Enable mute.])
+fi
+
 # Gettext
 GETTEXT_PACKAGE=mtg
 AC_SUBST(GETTEXT_PACKAGE)

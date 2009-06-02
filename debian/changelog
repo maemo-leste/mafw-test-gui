@@ -1,8 +1,10 @@
-mafw-test-gui (0.1.2009.22-4) unstable; urgency=low
+mafw-test-gui (0.1.2009.23-1) unstable; urgency=low
 
-  * MAFW Test GUI, pre-release 0.2009.22-4
+  * MAFW Test GUI, pre-release 0.2009.23-1
+  * Fixes: NB#117083 - 'mafw-test-gui' crashed observed while import empty playlist file 
+  * Fixing a warning.
 
- -- Juha Kellokoski <veitikka6@gmail.com>  Wed, 27 May 2009 10:30:00 +0300
+ -- Juha Kellokoski <veitikka6@gmail.com>  Fri, 29 May 2009 10:30:00 +0300
 
 mafw-test-gui (0.1.2009.22-3) unstable; urgency=low
 

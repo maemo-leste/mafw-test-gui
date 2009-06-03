@@ -1,7 +1,24 @@
+mafw-test-gui (0.1.2009.23-3) unstable; urgency=low
+
+  * MAFW Test GUI, pre-release 0.2009.23-3
+
+ -- Juha Kellokoski <veitikka6@gmail.com>  Tue, 02 Jun 2009 12:00:00 +0300
+
+mafw-test-gui (0.1.2009.23-2) unstable; urgency=low
+
+  * MAFW Test GUI, pre-release 0.2009.23-2
+  * Fixes: NB#117083 - 'mafw-test-gui' crashed observed while import empty playlist file 
+  * Set mute toggle_button insensitive by default in mafw-test-gui
+  * Added --enable-mute disabled by default in mafw-test-gui configuration
+  * Added ENABLED_BY_DEFAULT and DISABLED_BY_DEFAULT functions in
+    mafw-test-gui configure.ac
+  * Replace deprecated GTK_SIGNAL_FUNC by G_CALLBACK.
+
+ -- Juha Kellokoski <veitikka6@gmail.com>  Tue, 02 Jun 2009 12:00:00 +0300
+
 mafw-test-gui (0.1.2009.23-1) unstable; urgency=low
 
   * MAFW Test GUI, pre-release 0.2009.23-1
-  * Fixes: NB#117083 - 'mafw-test-gui' crashed observed while import empty playlist file 
   * Fixing a warning.
 
  -- Juha Kellokoski <veitikka6@gmail.com>  Fri, 29 May 2009 10:30:00 +0300

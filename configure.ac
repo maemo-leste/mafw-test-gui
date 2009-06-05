@@ -52,7 +52,7 @@ AC_ARG_ENABLE([debug],
         AS_HELP_STRING([--enable-debug],
 		       [Enable debug messages (default = no)]),
         [AC_DEFINE([MAFW_DEBUG], [1], [Enable extra debug messages])
-	 CFLAGS="$CFLAGS -Wall -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations -Werror -O0 -ggdb3"],
+	 CFLAGS="$CFLAGS -Wall -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations -O0 -ggdb3"],
         [AC_DEFINE([G_DEBUG_DISABLE], [1], [Disable g_debug calls])
 	 CFLAGS="$CFLAGS -O2"])
 

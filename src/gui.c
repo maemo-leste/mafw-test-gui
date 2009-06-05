@@ -868,7 +868,7 @@ setup_menu (void)
 	g_signal_connect(G_OBJECT(item), "activate",
 			 G_CALLBACK(on_delete_event), NULL);
 
-	hildon_window_set_menu (HILDON_WINDOW (main_window), GTK_MENU (menu));
+	hildon_window_set_main_menu (HILDON_WINDOW (main_window), GTK_MENU (menu));
 }
 
 static gboolean

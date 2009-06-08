@@ -13,7 +13,7 @@ endif
 
 AM_CFLAGS = $(HILDON_CFLAGS) $(GTHREAD_CFLAGS) \
 	    $(GCONF_CFLAGS) $(MAFW_CFLAGS) \
-	    -I$(top_srcdir) -DDATA_DIR='"$(shareddir)"'
+	    -I$(top_srcdir) -DDATA_DIR='"$(shareddir)"' -DGTK_DISABLE_DEPRECATED
 
 bin_PROGRAMS = mafw-test-gui
 

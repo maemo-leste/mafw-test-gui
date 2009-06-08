@@ -869,6 +869,7 @@ setup_menu (void)
 			 G_CALLBACK(on_delete_event), NULL);
 
 	hildon_window_set_main_menu (HILDON_WINDOW (main_window), GTK_MENU (menu));
+	gtk_widget_show_all(menu);
 }
 
 static gboolean

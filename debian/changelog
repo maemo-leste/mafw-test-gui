@@ -1,3 +1,12 @@
+mafw-test-gui (0.1.2009.24-2) unstable; urgency=low
+
+  * MAFW Test GUI, pre-release 0.2009.24-2
+  * Temporal workaround to be able to use hildon functions that are using GTK
+    deprecated functions.
+  * Replace deprecated functions.
+
+ -- Juha Kellokoski <veitikka6@gmail.com>  Mon, 08 Jun 2009 11:00:00 +0300
+
 mafw-test-gui (0.1.2009.24-1) unstable; urgency=low
 
   * MAFW Test GUI, pre-release 0.2009.24-1

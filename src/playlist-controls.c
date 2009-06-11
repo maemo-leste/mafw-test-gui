@@ -43,6 +43,8 @@ static GtkWidget *shuffle_toggle;
 static GtkWidget *lower_item;
 static GtkWidget *raise_item;
 
+static gboolean select_on_creation = TRUE;
+
 enum {
 	PLAYLIST_COMBO_COLUMN_NAME, /* Playlist name displayed in the combo */
 	PLAYLIST_COMBO_COLUMN_ID,   /* Proxy PLS id (hidden) */
@@ -357,8 +359,12 @@ on_save_playlist_button_clicked (GtkWidget *widget)
 
                 g_free(new_name);
 		g_free(old_name);
-		if (newpl)
+		if (newpl) {
+                        /* This time, prevent selecting the new playlist when
+                           playlist is added with 'playlist-created' signal */
+                        select_on_creation = FALSE;
 			g_object_unref(newpl);
+                }
         }
 }
 
@@ -701,7 +707,13 @@ on_mafw_playlist_created (MafwPlaylistManager* manager,
 	g_return_if_fail(playlist != NULL);
 
 	/* Append and select */
-	append_playlist_to_combo (playlist, GINT_TO_POINTER(TRUE));
+	append_playlist_to_combo (playlist,
+                                  GINT_TO_POINTER(select_on_creation));
+
+        /* Reset select */
+        if (select_on_creation == FALSE) {
+                select_on_creation = TRUE;
+        }
 }
 
 /**
@@ -798,7 +810,8 @@ setup_playlist_name_combo (void)
 
 	/* Listen to playlist manager's playlist creation/destruction signals */
 	g_signal_connect(manager, "playlist-created",
-			 G_CALLBACK(on_mafw_playlist_created), NULL);
+			 G_CALLBACK(on_mafw_playlist_created),
+                         &select_on_creation);
 	g_signal_connect(manager, "playlist-destroyed",
 			 G_CALLBACK(on_mafw_playlist_destroyed), NULL);
 

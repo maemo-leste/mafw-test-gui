@@ -600,6 +600,10 @@ static void import_cb(MafwPlaylistManager *self,
 	else
 		fprintf (stderr, "with error: %s", error->message);
 	#endif
+	if (error)
+		hildon_banner_show_information (NULL,
+						"qgn_list_smiley_angry",
+						error->message);
 }
 
 void playlist_import(const gchar *oid)

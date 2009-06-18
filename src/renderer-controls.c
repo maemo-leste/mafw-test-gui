@@ -74,6 +74,38 @@ void on_next_button_clicked(GtkButton *button, gpointer user_data);
 void on_clear_state_button_clicked(GtkButton *button, gpointer user_data);
 gboolean on_position_hscale_value_changed(GtkRange *range, gpointer user_data);
 
+static void get_position_info_cb (MafwRenderer *renderer, gint position,
+				  gpointer user_data, const GError *error);
+
+static gboolean
+update_position (gpointer data)
+{
+	MafwRenderer *renderer = NULL;
+	renderer = get_selected_renderer ();
+	mafw_renderer_get_position (renderer, get_position_info_cb,  NULL);
+        return TRUE;
+}
+
+static void
+add_timeout (void)
+{
+        if (timeout_id == 0) {
+                timeout_id = g_timeout_add (250,
+                                            update_position,
+                                            NULL);
+        }
+}
+
+static void
+remove_timeout (void)
+{
+        if (timeout_id != 0) {
+                g_source_remove (timeout_id);
+                timeout_id = 0;
+        }
+}
+
+
 
 /* FIXME let the user know of the error too */
 static void
@@ -186,6 +218,7 @@ stop (void)
 
         state = get_selected_renderer_state ();
         if (state != Stopped) {
+		remove_timeout();
 		mafw_renderer_stop(renderer, play_error_cb, NULL);
 	} else {
 		g_warning ("Tried to Stop when renderer state "
@@ -464,36 +497,6 @@ get_position_info_cb (MafwRenderer   *renderer,
 						"qgn_list_smiley_angry",
 						error->message);
 	}
-}
-
-static gboolean
-update_position (gpointer data)
-{
-	MafwRenderer *renderer = NULL;
-
-	renderer = get_selected_renderer ();
-	mafw_renderer_get_position (renderer, get_position_info_cb,  NULL);
-
-        return TRUE;
-}
-
-static void
-add_timeout (void)
-{
-        if (timeout_id == 0) {
-                timeout_id = g_timeout_add (250,
-                                            update_position,
-                                            NULL);
-        }
-}
-
-static void
-remove_timeout (void)
-{
-        if (timeout_id != 0) {
-                g_source_remove (timeout_id);
-                timeout_id = 0;
-        }
 }
 
 void

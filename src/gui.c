@@ -205,12 +205,37 @@ static void insert_key_to_metadata_view (gpointer key, gpointer value,
 	/* The actual contents type might be anything, so convert the value
 	   always into a string that can be easily set to the model. */
 
-	if (G_VALUE_HOLDS((GValue *)value, G_TYPE_STRING)) {
-		str_value = g_strdup ((gchar *) g_value_get_string (value));
-	} else {
-		str_value = g_strdup_value_contents ((GValue*) value);
+	if (G_IS_VALUE(value)) {
+		if (G_VALUE_HOLDS((GValue *)value, G_TYPE_STRING)) {
+			str_value = g_strdup ((gchar *) g_value_get_string (value));
+		} else {
+			str_value = g_strdup_value_contents ((GValue*) value);
+		}
 	}
+	else
+	{
+		guint i;
+		GString *str;
+		GValueArray *values;
+		GValue strval;
 
+		memset(&strval, 0, sizeof(strval));
+		str = g_string_new(NULL);
+
+		values = value;
+		for (i = 0; i < values->n_values; i++) {
+			g_value_init(&strval, G_TYPE_STRING);
+			g_value_transform(g_value_array_get_nth(values, i),
+					  &strval);
+
+			if (i > 0)
+				g_string_append(str, "\n");
+			g_string_append(str, g_value_get_string(&strval));
+			g_value_unset(&strval);
+		}
+		str_value = str->str;
+		g_string_free(str, FALSE);
+	}
 	gtk_list_store_append (store, &iter);
 	gtk_list_store_set (store, &iter,
 			    0, (const gchar*) key, /* Key */

@@ -614,7 +614,7 @@ on_import_file(GtkMenuItem* item, gpointer user_data)
 }
 
 static void
-on_import_oid(GtkMenuItem* item, gpointer user_data)
+on_import_category(GtkMenuItem* item, gpointer user_data)
 {
 	gchar *selected_oid = get_selected_object_id();
 	if (selected_oid)
@@ -854,11 +854,11 @@ setup_menu (void)
 	sub_menu = gtk_menu_new ();
 	gtk_menu_item_set_submenu (GTK_MENU_ITEM (item), sub_menu);
 
-	/* Import selected object-id */
-	sub_item = gtk_menu_item_new_with_label ("Import selected object-id");
+	/* Import selected category */
+	sub_item = gtk_menu_item_new_with_label ("Import selected category");
 	gtk_menu_shell_append (GTK_MENU_SHELL (sub_menu), sub_item);
 	g_signal_connect (G_OBJECT (sub_item), "activate",
-			  G_CALLBACK (on_import_oid), NULL);
+			  G_CALLBACK (on_import_category), NULL);
 
 	/* Import selected URI */
 	sub_item = gtk_menu_item_new_with_label ("Import selected URI");

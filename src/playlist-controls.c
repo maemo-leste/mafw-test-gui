@@ -422,8 +422,12 @@ get_name_dialog(const gchar* text, guint pls_id)
 					     NULL);
 
 	entry = gtk_entry_new();
-	gtk_container_add(GTK_CONTAINER(gtk_bin_get_child(GTK_BIN(dialog))),
-			  entry);
+        GtkWidget *vbox = gtk_vbox_new(FALSE, 0);
+        gtk_box_pack_start(GTK_BOX(GTK_DIALOG(dialog)->vbox),
+                           vbox, TRUE, TRUE, 0);
+        gtk_box_pack_start(GTK_BOX(vbox), entry, FALSE, FALSE, 0);
+/* 	gtk_container_add(GTK_CONTAINER(gtk_bin_get_child(GTK_BIN(dialog))), */
+/* 			  entry); */
 	gtk_entry_set_text(GTK_ENTRY(entry), text);
 
 show_dlg:

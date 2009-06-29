@@ -261,6 +261,7 @@ on_show_all_metadata_activate (GtkMenuItem* item, gpointer user_data)
 	GtkWidget* dialog;
 	GtkWidget* scroll;
 	GtkWidget* view;
+        GtkWidget* vbox;
 	GtkListStore* store;
 	GtkCellRenderer *renderer;
 	GtkTreeViewColumn *column;
@@ -291,8 +292,12 @@ on_show_all_metadata_activate (GtkMenuItem* item, gpointer user_data)
 	/* Create a scrolled view and insert it into the dialog */
 	scroll = gtk_scrolled_window_new (NULL, NULL);
 	g_assert (scroll != NULL);
-	gtk_container_add (GTK_CONTAINER (gtk_bin_get_child (GTK_BIN(dialog))),
-			   scroll);
+	gtk_widget_set_size_request (scroll, 600, 300);
+        vbox = gtk_vbox_new(FALSE, 0);
+        g_assert (vbox != NULL);
+        gtk_box_pack_start(GTK_BOX(GTK_DIALOG(dialog)->vbox),
+                           vbox, TRUE, TRUE, 0);
+        gtk_box_pack_start(GTK_BOX(vbox), scroll, FALSE, FALSE, 0);
 
 	/* Create a tree view and insert it into the scrolled view */
 	view = gtk_tree_view_new_with_model (GTK_TREE_MODEL (store));

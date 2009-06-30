@@ -1,8 +1,21 @@
-mafw-test-gui (0.1.2009.25-3) unstable; urgency=low
+mafw-test-gui (0.1.2009.27-1) unstable; urgency=low
 
-  * MAFW Test GUI, pre-release 0.2009.25-3
+  * MAFW Test GUI, pre-release 0.2009.27-1
+  * Fixes: NB#122273 - While importing the video files through object id, few names are not getting displayed . 
+  * Renamed "Import selected object-id" to "Import selected category" to avoid
+    confusions.
 
- -- Juha Kellokoski <veitikka6@gmail.com>  Mon, 15 Jun 2009 14:00:00 +0300
+ -- Juha Kellokoski <veitikka6@gmail.com>  Thu, 25 Jun 2009 13:40:00 +0300
+
+mafw-test-gui (0.1.2009.26-1) unstable; urgency=low
+
+  * MAFW Test GUI, pre-release 0.2009.26-1
+  * Support to show multiple items in a metadata
+  * Remove update position timeout as soon as we issue the
+    Stop command, to avoid issuing get_position calls
+    when the renderer is already stopped.
+
+ -- Juha Kellokoski <veitikka6@gmail.com>  Tue, 23 Jun 2009 14:33:24 +0300
 
 mafw-test-gui (0.1.2009.25-2) unstable; urgency=low
 

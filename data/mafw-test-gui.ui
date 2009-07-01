@@ -208,49 +208,6 @@
                 <property name="visible">True</property>
                 <property name="spacing">5</property>
                 <child>
-                  <object class="GtkHBox" id="playlist-control-hbox">
-                    <property name="visible">True</property>
-                    <property name="spacing">2</property>
-                    <child>
-                      <object class="GtkComboBox" id="playlist-name-combobox">
-                        <property name="visible">True</property>
-                        <signal handler="on_playlist_name_combobox_changed" name="changed"/>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkButton" id="add-playlist-button">
-                        <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="receives_default">True</property>
-                        <property name="label" translatable="yes">+</property>
-                        <signal handler="on_add_playlist_button_clicked" name="clicked"/>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">False</property>
-                        <property name="position">1</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkButton" id="remove-playlist-button">
-                        <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="receives_default">True</property>
-                        <property name="label" translatable="yes">-</property>
-                        <signal handler="on_remove_playlist_button_clicked" name="clicked"/>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">False</property>
-                        <property name="position">2</property>
-                      </packing>
-                    </child>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                  </packing>
-                </child>
-                <child>
                   <object class="GtkScrolledWindow" id="scrolledwindow1">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
@@ -318,6 +275,49 @@
                   <packing>
                     <property name="expand">False</property>
                     <property name="position">2</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkHBox" id="playlist-control-hbox">
+                    <property name="visible">True</property>
+                    <property name="spacing">2</property>
+                    <child>
+                      <object class="GtkComboBox" id="playlist-name-combobox">
+                        <property name="visible">True</property>
+                        <signal handler="on_playlist_name_combobox_changed" name="changed"/>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkButton" id="add-playlist-button">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="receives_default">True</property>
+                        <property name="label" translatable="yes">+</property>
+                        <signal handler="on_add_playlist_button_clicked" name="clicked"/>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">False</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkButton" id="remove-playlist-button">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="receives_default">True</property>
+                        <property name="label" translatable="yes">-</property>
+                        <signal handler="on_remove_playlist_button_clicked" name="clicked"/>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">False</property>
+                        <property name="position">2</property>
+                      </packing>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
                   </packing>
                 </child>
                 <child>

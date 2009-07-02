@@ -226,6 +226,9 @@ on_add_playlist_button_clicked (GtkWidget *widget)
 				"qgn_list_gene_invalid",
 				"Unable to create new playlist");
 		}
+		
+		if (playlist)
+			g_object_unref(playlist);
 
 		g_free(name);
 	}
@@ -376,6 +379,8 @@ void on_renderer_assigned_playlist_changed(MafwPlaylist *playlist)
 	GtkTreeIter iter;
 
 	if (!playlist) {
+		gtk_combo_box_set_active(GTK_COMBO_BOX(playlist_name_combobox),
+						-1);
 		return;
 	}
 
@@ -487,12 +492,18 @@ get_current_playlist ()
 	g_assert (manager != NULL);
 
 	playlist = mafw_playlist_manager_get_playlist(manager, id, &error);
-	if (error != NULL) {
-		g_print("Cannot find playlist proxy with ID:%u: %s",
-			id, error->message);
-		g_error_free(error);
+	if (error != NULL || playlist == NULL) {
+		if (error)
+		{
+			g_print("Cannot find playlist proxy with ID:%u: %s",
+				id, error->message);
+			g_error_free(error);
+		}
+		else
+			g_print("Cannot find playlist proxy with ID:%u", id);
 		return NULL;
 	} else {
+		g_object_unref(playlist);
 		return playlist;
 	}
 }
@@ -578,7 +589,7 @@ append_playlist_to_combo(MafwProxyPlaylist *playlist, gpointer user_data)
 			  (GCallback) on_mafw_playlist_item_moved, NULL);
 	
 	g_free(name);
-
+	g_object_ref(playlist);
 }
 
 /*****************************************************************************
@@ -775,7 +786,7 @@ on_mafw_playlist_destroyed (MafwPlaylistManager* manager,
 		/* Remove the iter. */
 		gtk_list_store_remove(GTK_LIST_STORE (playlist_name_model),
 				      &iter);
-
+		g_object_unref(playlist);
 	}
 }
 

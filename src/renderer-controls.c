@@ -519,6 +519,7 @@ prepare_controls_for_state (MafwPlayState state)
 		g_signal_handlers_block_by_func (G_OBJECT(position_hscale),
 						on_position_hscale_value_changed, NULL);
 		gtk_range_set_value (GTK_RANGE (position_hscale), 0.0);
+		gtk_label_set_text(GTK_LABEL(position_label), "00:00");
 		g_signal_handlers_unblock_by_func(G_OBJECT(position_hscale),
 						  on_position_hscale_value_changed, NULL);
                 break;

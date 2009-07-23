@@ -1,3 +1,10 @@
+mafw-test-gui (0.1.2009.30-2) unstable; urgency=low
+
+  * MAFW Test GUI, pre-release 0.2009.30-2
+  * Reset seekbar label to 00:00 on Stop.
+
+ -- Juha Kellokoski <veitikka6@gmail.com>  Wed, 22 Jul 2009 14:00:00 +0300
+
 mafw-test-gui (0.1.2009.30-1) unstable; urgency=low
 
   * MAFW Test GUI, pre-release 0.2009.30-1

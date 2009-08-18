@@ -937,6 +937,7 @@ init_ui (gint   *argc,
 	HildonProgram *program;
 
         gtk_init (argc, argv);
+        hildon_init();
         g_thread_init (NULL);
 
         /* Load gtk-builder file */

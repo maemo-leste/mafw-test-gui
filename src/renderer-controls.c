@@ -113,7 +113,7 @@ play_error_cb(MafwRenderer *renderer, gpointer user_data, const GError *error)
 {
 	if (error != NULL)
 		hildon_banner_show_information (GTK_WIDGET (user_data),
-						"qgn_list_smiley_angry",
+						"chat_smiley_angry",
 						error->message);
 }
 
@@ -125,7 +125,7 @@ set_position_cb (MafwRenderer   *renderer,
 {
 	if (error != NULL)
 		hildon_banner_show_information (GTK_WIDGET (user_data),
-						"qgn_list_smiley_angry",
+						"chat_smiley_angry",
 						error->message);
 }
 
@@ -280,7 +280,7 @@ static void mute_cb(MafwExtension *self, const gchar *name, GValue *value,
 
 	if (error != NULL)
 		hildon_banner_show_information (GTK_WIDGET (user_data),
-						"qgn_list_smiley_angry",
+						"chat_smiley_angry",
 						error->message);
 }
 
@@ -494,7 +494,7 @@ get_position_info_cb (MafwRenderer   *renderer,
 		set_position_hscale_position (position);
 	} else {
 		hildon_banner_show_information (GTK_WIDGET (user_data),
-						"qgn_list_smiley_angry",
+						"chat_smiley_angry",
 						error->message);
 	}
 }
@@ -583,25 +583,25 @@ prepare_controls_for_state (MafwPlayState state)
                                          NULL);
         }
 
-	if (play_possible == TRUE)
-	{
-		GtkWidget* image;
-		image = gtk_image_new_from_icon_name ("qgn_widg_mplayer_play",
-						      HILDON_ICON_SIZE_SMALL);
-		gtk_button_set_image (GTK_BUTTON (play_button), image);
-	}
-	if (pause_possible == TRUE)
-	{
-		GtkWidget* image;
-		image = gtk_image_new_from_icon_name ("qgn_widg_mplayer_pause",
-						      HILDON_ICON_SIZE_SMALL);
-		gtk_button_set_image (GTK_BUTTON (play_button), image);
-	}
+        if (play_possible == TRUE) {
+                GtkWidget *image;
+                image = gtk_image_new_from_icon_name("camera_playback",
+                                                     HILDON_ICON_SIZE_SMALL);
+                gtk_button_set_image(GTK_BUTTON(play_button), image);
+        }
 
-	if (play_possible == FALSE && pause_possible == FALSE)
+        if (pause_possible == TRUE) {
+                GtkWidget *image;
+                image = gtk_image_new_from_icon_name("camera_video_pause",
+                                                     HILDON_ICON_SIZE_SMALL);
+                gtk_button_set_image(GTK_BUTTON(play_button), image);
+        }
+
+	if (play_possible == FALSE && pause_possible == FALSE) {
 		gtk_widget_set_sensitive (play_button, FALSE);
-	else
+        } else {
 		gtk_widget_set_sensitive (play_button, TRUE);
+        }
 
         gtk_widget_set_sensitive (stop_button, stop_possible);
 }
@@ -640,41 +640,26 @@ setup_renderer_controls (GtkBuilder *builder)
                                                         "previous-button"));
         g_assert (prev_button != NULL);
 
-	gtk_button_set_label (GTK_BUTTON (prev_button), NULL);
-	image = gtk_image_new_from_icon_name ("qgn_widg_mplayer_rew",
-					      HILDON_ICON_SIZE_SMALL);
-	gtk_button_set_image (GTK_BUTTON (prev_button), image);
-
 	/* Seek backwards */
         seek_backwards_button =
                 GTK_WIDGET(gtk_builder_get_object(builder,
                                                   "seek-backwards-button"));
         g_assert (seek_backwards_button != NULL);
 
-	gtk_button_set_label (GTK_BUTTON (seek_backwards_button), NULL);
-	image = gtk_image_new_from_icon_name ("qgn_list_hw_button_left",
-					      HILDON_ICON_SIZE_SMALL);
-	gtk_button_set_image (GTK_BUTTON (seek_backwards_button), image);
-
 	/* Play */
         play_button = GTK_WIDGET(gtk_builder_get_object(builder,
                                                         "play-button"));
         g_assert (play_button != NULL);
 
-	gtk_button_set_label (GTK_BUTTON (play_button), NULL);
-	image = gtk_image_new_from_icon_name ("qgn_widg_mplayer_play",
-					      HILDON_ICON_SIZE_SMALL);
-	gtk_button_set_image (GTK_BUTTON (play_button), image);
+        gtk_button_set_label(GTK_BUTTON(play_button), NULL);
+        image = gtk_image_new_from_icon_name("camera_playback",
+                                             HILDON_ICON_SIZE_SMALL);
+        gtk_button_set_image(GTK_BUTTON(play_button), image);
 
 	/* Stop */
         stop_button = GTK_WIDGET(gtk_builder_get_object(builder,
                                                         "stop-button"));
         g_assert (stop_button != NULL);
-
-	gtk_button_set_label (GTK_BUTTON (stop_button), NULL);
-	image = gtk_image_new_from_icon_name ("qgn_widg_mplayer_stop",
-					      HILDON_ICON_SIZE_SMALL);
-	gtk_button_set_image (GTK_BUTTON (stop_button), image);
 
 	/* Seek forwards */
         seek_forwards_button =
@@ -682,30 +667,15 @@ setup_renderer_controls (GtkBuilder *builder)
                                                   "seek-forwards-button"));
         g_assert (seek_forwards_button != NULL);
 
-	gtk_button_set_label (GTK_BUTTON (seek_forwards_button), NULL);
-	image = gtk_image_new_from_icon_name ("qgn_list_hw_button_right",
-					      HILDON_ICON_SIZE_SMALL);
-	gtk_button_set_image (GTK_BUTTON (seek_forwards_button), image);
-
 	/* Next */
         next_button = GTK_WIDGET(gtk_builder_get_object(builder,
                                                         "next-button"));
         g_assert (next_button != NULL);
 
-	gtk_button_set_label (GTK_BUTTON (next_button), NULL);
-	image = gtk_image_new_from_icon_name ("qgn_widg_mplayer_fwd",
-					      HILDON_ICON_SIZE_SMALL);
-	gtk_button_set_image (GTK_BUTTON (next_button), image);
-
 	/* Mute */
 	mute_toggle = GTK_WIDGET(gtk_builder_get_object(builder,
                                                         "mute-button"));
         g_assert (mute_toggle != NULL);
-
-	gtk_button_set_label (GTK_BUTTON (mute_toggle), NULL);
-	image = gtk_image_new_from_icon_name ("qgn_medi_volume_muted",
-					      HILDON_ICON_SIZE_SMALL);
-	gtk_button_set_image (GTK_BUTTON (mute_toggle), image);
 
 #ifndef MAFW_TEST_GUI_ENABLE_MUTE
 	gtk_widget_set_sensitive(mute_toggle, FALSE);

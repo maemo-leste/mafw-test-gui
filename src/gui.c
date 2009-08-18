@@ -87,7 +87,7 @@ static gchar *get_renderer_and_non_container_oid(MafwRenderer **renderer)
 		if (oid == NULL)
 		{
 			hildon_banner_show_information (NULL,
-					"qgn_list_smiley_angry",
+					"chat_smiley_angry",
 					"Current item has no object ID");
 			return NULL;
 		}
@@ -96,7 +96,7 @@ static gchar *get_renderer_and_non_container_oid(MafwRenderer **renderer)
 		if (*renderer == NULL)
 		{
 			hildon_banner_show_information (NULL,
-					"qgn_list_smiley_angry",
+					"chat_smiley_angry",
 					"No renderer selected");
 			g_free (oid);
 			return NULL;
@@ -146,7 +146,7 @@ static void get_metadata_from_oid(gchar *oid, MafwSourceMetadataResultCb cb,
 	if (!source)
 	{
 		hildon_banner_show_information (NULL,
-						"qgn_list_smiley_angry",
+						"chat_smiley_angry",
 						"Source not available");
 	}
 	else
@@ -371,7 +371,7 @@ on_create_object_activate (GtkMenuItem* item, gpointer user_data)
 	{
 		g_free(selected_oid);
 		hildon_banner_show_information (NULL,
-						"qgn_list_smiley_angry",
+						"chat_smiley_angry",
 						"No source selected");
 		return;
 	}
@@ -379,7 +379,7 @@ on_create_object_activate (GtkMenuItem* item, gpointer user_data)
 	{
 		g_free(selected_oid);
 		hildon_banner_show_information (NULL,
-						"qgn_list_smiley_angry",
+						"chat_smiley_angry",
 						"No playlist item selected");
 		return;
 	}
@@ -408,14 +408,14 @@ on_destroy_object_activate (GtkMenuItem* item, gpointer user_data)
 	if (selected_source == NULL)
 	{
 		hildon_banner_show_information (NULL,
-						"qgn_list_smiley_angry",
+						"chat_smiley_angry",
 						"No source selected");
 		return;
 	}
 	else if (selected_oid == NULL)
 	{
 		hildon_banner_show_information (NULL,
-						"qgn_list_smiley_angry",
+						"chat_smiley_angry",
 						"No playlist item selected");
 		return;
 	}
@@ -584,7 +584,7 @@ static void import_oid_mdat_cb(MafwSource *self,
 	if (error)
 	{
 		hildon_banner_show_information (NULL,
-						"qgn_list_smiley_angry",
+						"chat_smiley_angry",
 						error->message);
 	}
 	else
@@ -600,7 +600,7 @@ static void import_oid_mdat_cb(MafwSource *self,
 		{/* No URI?? */
 			hildon_banner_show_information (
                                 NULL,
-				"qgn_list_smiley_angry",
+				"chat_smiley_angry",
 				"Metadata does not contain "
                                 "any URI information");
 		}

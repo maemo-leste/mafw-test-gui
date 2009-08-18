@@ -120,7 +120,7 @@ on_shuffle_button_toggled (GtkWidget *widget)
 	if (playlist == NULL)
 	{
 		hildon_banner_show_information (NULL,
-						"qgn_list_smiley_angry",
+						"chat_smiley_angry",
 						"No current playlist");
 		return;
 	}
@@ -617,7 +617,7 @@ static void import_cb(MafwPlaylistManager *self,
 	#endif
 	if (error)
 		hildon_banner_show_information (NULL,
-						"qgn_list_smiley_angry",
+						"chat_smiley_angry",
 						error->message);
 }
 
@@ -636,7 +636,7 @@ void playlist_import(const gchar *oid)
 	if (import_id == MAFW_PLAYLIST_MANAGER_INVALID_IMPORT_ID)
 	{
 		hildon_banner_show_information (NULL,
-						"qgn_list_smiley_angry",
+						"chat_smiley_angry",
 						err->message);
 	}
 }
@@ -854,7 +854,6 @@ setup_playlist_name_combo (void)
 void
 setup_playlist_controls (GtkBuilder *builder)
 {
-	GtkWidget* image;
 	GtkWidget* widget;
 
 	/* Add playlist */
@@ -862,90 +861,45 @@ setup_playlist_controls (GtkBuilder *builder)
                                                    "add-playlist-button"));
         g_assert (widget != NULL);
 
-	gtk_button_set_label (GTK_BUTTON(widget), NULL);
-	image = gtk_image_new_from_icon_name ("qgn_widg_mplayer_add",
-					      HILDON_ICON_SIZE_SMALL);
-	gtk_button_set_image (GTK_BUTTON(widget), image);
-
 	/* Remove playlist */
 	widget = GTK_WIDGET(gtk_builder_get_object(builder,
                                                    "remove-playlist-button"));
         g_assert (widget != NULL);
-
-	gtk_button_set_label (GTK_BUTTON(widget), NULL);
-	image = gtk_image_new_from_icon_name ("qgn_widg_mplayer_remove",
-					      HILDON_ICON_SIZE_SMALL);
-	gtk_button_set_image (GTK_BUTTON(widget), image);
 
 	/* Add item */
 	widget = GTK_WIDGET(gtk_builder_get_object(builder,
                                                    "add-item-button"));
         g_assert (widget != NULL);
 
-	gtk_button_set_label (GTK_BUTTON(widget), NULL);
-	image = gtk_image_new_from_icon_name ("qgn_list_gene_forward",
-					      HILDON_ICON_SIZE_SMALL);
-	gtk_button_set_image (GTK_BUTTON(widget), image);
-
 	/* Remove item */
 	widget = GTK_WIDGET(gtk_builder_get_object(builder,
                                                    "remove-item-button"));
         g_assert (widget != NULL);
-
-	gtk_button_set_label (GTK_BUTTON(widget), NULL);
-	image = gtk_image_new_from_icon_name ("qgn_list_gene_back",
-					      HILDON_ICON_SIZE_SMALL);
-	gtk_button_set_image (GTK_BUTTON(widget), image);
 
 	/* Remove item */
 	widget = GTK_WIDGET(gtk_builder_get_object(builder,
                                                     "clear-playlist-button"));
         g_assert (widget != NULL);
 
-	gtk_button_set_label (GTK_BUTTON(widget), NULL);
-	image = gtk_image_new_from_icon_name ("qgn_toolb_gene_deletebutton",
-					      HILDON_ICON_SIZE_SMALL);
-	gtk_button_set_image (GTK_BUTTON(widget), image);
-
 	/* Raise */
 	raise_item = GTK_WIDGET(gtk_builder_get_object(builder,
                                                        "raise-item-button"));
         g_assert (raise_item != NULL);
-
-	gtk_button_set_label (GTK_BUTTON (raise_item), NULL);
-	image = gtk_image_new_from_icon_name ("qgn_indi_arrow_up",
-					      HILDON_ICON_SIZE_SMALL);
-	gtk_button_set_image (GTK_BUTTON (raise_item), image);
 
 	/* Lower */
 	lower_item = GTK_WIDGET(gtk_builder_get_object(builder,
                                                        "lower-item-button"));
         g_assert (lower_item != NULL);
 
-	gtk_button_set_label (GTK_BUTTON (lower_item), NULL);
-	image = gtk_image_new_from_icon_name ("qgn_indi_arrow_down",
-					      HILDON_ICON_SIZE_SMALL);
-	gtk_button_set_image (GTK_BUTTON (lower_item), image);
-
 	/* Repeat */
 	repeat_toggle = GTK_WIDGET(gtk_builder_get_object(builder,
                                                           "repeat-button"));
         g_assert (repeat_toggle != NULL);
 
-	gtk_button_set_label (GTK_BUTTON(repeat_toggle), NULL);
-	image = gtk_image_new_from_icon_name ("qgn_medi_random_off_repeat_on",
-					      HILDON_ICON_SIZE_SMALL);
-	gtk_button_set_image (GTK_BUTTON(repeat_toggle), image);
-
 	/* Shuffle */
 	shuffle_toggle = GTK_WIDGET(gtk_builder_get_object(builder,
                                                            "shuffle-button"));
         g_assert (shuffle_toggle != NULL);
-
-	gtk_button_set_label (GTK_BUTTON (shuffle_toggle), NULL);
-	image = gtk_image_new_from_icon_name ("qgn_medi_random_on_repeat_off",
-					      HILDON_ICON_SIZE_SMALL);
-	gtk_button_set_image (GTK_BUTTON (shuffle_toggle), image);
 
 	/* Playlist combo */
         playlist_name_combobox =

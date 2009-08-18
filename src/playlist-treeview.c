@@ -105,7 +105,7 @@ display_playlist_contents(MafwPlaylist *playlist)
 	if (error != NULL)
 	{
 		hildon_banner_show_information (NULL,
-						"qgn_list_smiley_angry",
+						"chat_smiley_angry",
 						error->message);
 		g_error_free (error);
 		return;
@@ -321,7 +321,7 @@ on_mafw_playlist_contents_changed(MafwPlaylist *playlist, guint from,
         if (current_playlist == NULL)
 	{
 		hildon_banner_show_information (NULL,
-						"qgn_list_smiley_angry",
+						"chat_smiley_angry",
 						"No playlist selected");
 		return;
 	}
@@ -570,7 +570,7 @@ on_add_item_button_clicked (GtkWidget *widget)
 	if (playlist == NULL)
 	{
 		hildon_banner_show_information (widget,
-						"qgn_list_smiley_angry",
+						"chat_smiley_angry",
 						"No current playlist");
 		return;
 	}
@@ -591,7 +591,7 @@ on_add_item_button_clicked (GtkWidget *widget)
 	if (oid == NULL)
 	{
 		hildon_banner_show_information (widget,
-						"qgn_list_smiley_angry",
+						"chat_smiley_angry",
 						"Item has no object ID");
 		return;
 	}
@@ -603,7 +603,7 @@ on_add_item_button_clicked (GtkWidget *widget)
 	if (error != NULL)
 	{
 		hildon_banner_show_information (widget,
-						"qgn_list_smiley_angry",
+						"chat_smiley_angry",
 						error->message);
 		g_error_free(error);
 	}
@@ -629,7 +629,7 @@ on_remove_item_button_clicked (GtkWidget *widget)
 	if (playlist == NULL)
 	{
 		hildon_banner_show_information (widget,
-						"qgn_list_smiley_angry",
+						"chat_smiley_angry",
 						"No current playlist");
 		return;
 	}
@@ -644,7 +644,7 @@ on_remove_item_button_clicked (GtkWidget *widget)
 	if (error != NULL)
 	{
 		hildon_banner_show_information (widget,
-						"qgn_list_smiley_angry",
+						"chat_smiley_angry",
 						error->message);
 		g_error_free(error);
 	}
@@ -665,7 +665,7 @@ on_raise_item_button_clicked (GtkWidget *widget)
 	if (playlist == NULL)
 	{
 		hildon_banner_show_information (widget,
-						"qgn_list_smiley_angry",
+						"chat_smiley_angry",
 						"No current playlist");
 		return;
 	}
@@ -681,7 +681,7 @@ on_raise_item_button_clicked (GtkWidget *widget)
 	if (error != NULL)
 	{
 		hildon_banner_show_information (widget,
-						"qgn_list_smiley_angry",
+						"chat_smiley_angry",
 						error->message);
 		g_error_free(error);
 	}
@@ -702,7 +702,7 @@ on_lower_item_button_clicked (GtkWidget *widget)
 	if (playlist == NULL)
 	{
 		hildon_banner_show_information (widget,
-						"qgn_list_smiley_angry",
+						"chat_smiley_angry",
 						"No current playlist");
 		return;
 	}
@@ -718,7 +718,7 @@ on_lower_item_button_clicked (GtkWidget *widget)
 	if (error != NULL)
 	{
 		hildon_banner_show_information (widget,
-						"qgn_list_smiley_angry",
+						"chat_smiley_angry",
 						error->message);
 		g_error_free(error);
 	}
@@ -737,7 +737,7 @@ on_clear_playlist_button_clicked (GtkWidget *widget)
 	if (playlist == NULL)
 	{
 		hildon_banner_show_information (NULL,
-						"qgn_list_smiley_angry",
+						"chat_smiley_angry",
 						"No current playlist");
 		return;
 	}
@@ -747,7 +747,7 @@ on_clear_playlist_button_clicked (GtkWidget *widget)
 	if (error != NULL)
 	{
 		hildon_banner_show_information (NULL,
-						"qgn_list_smiley_angry",
+						"chat_smiley_angry",
 						error->message);
 		g_error_free(error);
 	}

@@ -339,7 +339,7 @@ static void renderer_error_cb(GObject *render, guint domain, gint code,
                               gchar *message)
 {
 	hildon_banner_show_information (NULL,
-					"qgn_list_smiley_angry",
+					"chat_smiley_angry",
 					message);
 }
 
@@ -354,7 +354,7 @@ static void update_volume(MafwExtension *self, const gchar *name, GValue *value,
 	if (error)
 	{
 		hildon_banner_show_information (NULL,
-						"qgn_list_smiley_angry",
+						"chat_smiley_angry",
 						error->message);
 		return;
 	}

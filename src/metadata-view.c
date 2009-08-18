@@ -324,7 +324,7 @@ void set_current_oid(const gchar *obj_id)
 	if (source == NULL)
 	{
 		hildon_banner_show_information (NULL,
-						"qgn_list_smiley_angry",
+						"chat_smiley_angry",
 						"Source not available");
 	}
 	else

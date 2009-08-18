@@ -196,7 +196,7 @@ init_app (void)
 	if (error != NULL)
 	{
 		hildon_banner_show_information (NULL,
-						"qgn_list_smiley_angry",
+						"chat_smiley_angry",
 						error->message);
 		g_error_free(error);
 		error = NULL;
@@ -246,7 +246,7 @@ init_app (void)
 						      "%s: %s", *plugin,
 						      error->message);
 				hildon_banner_show_information (NULL,
-						"qgn_list_smiley_angry", msg);	
+						"chat_smiley_angry", msg);
 				g_free(msg);
 				g_error_free(error);
 				error = NULL;

@@ -1,3 +1,15 @@
+mafw-test-gui (0.1.2009.35-3) unstable; urgency=low
+
+  * Version increased.
+
+ -- Mika Tapojärvi <ext-mika.tapojarvi@nokia.com>  Fri, 21 Aug 2009 20:33:20 +0300
+
+mafw-test-gui (0.1.2009.35-2) unstable; urgency=low
+
+  * First MAFW Sales RC.
+
+ -- Mika Tapojärvi <mika.tapojarvi@sse.fi>  Fri, 21 Aug 2009 16:43:26 +0300
+
 mafw-test-gui (0.1.2009.34-4) unstable; urgency=low
 
   * Version increased.

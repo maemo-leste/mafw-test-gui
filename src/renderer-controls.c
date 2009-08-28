@@ -82,6 +82,11 @@ update_position (gpointer data)
 {
 	MafwRenderer *renderer = NULL;
 	renderer = get_selected_renderer ();
+	if (!renderer)
+	{
+		timeout_id = 0;
+		return FALSE;
+	}
 	mafw_renderer_get_position (renderer, get_position_info_cb,  NULL);
         return TRUE;
 }

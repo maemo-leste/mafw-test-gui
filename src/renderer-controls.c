@@ -81,12 +81,21 @@ static gboolean
 update_position (gpointer data)
 {
 	MafwRenderer *renderer = NULL;
+	MafwPlayState state;
+
 	renderer = get_selected_renderer ();
 	if (!renderer)
 	{
 		timeout_id = 0;
 		return FALSE;
 	}
+
+	state = get_selected_renderer_state ();
+	if (state == Stopped) {
+		timeout_id = 0;
+		return FALSE;
+	}
+
 	mafw_renderer_get_position (renderer, get_position_info_cb,  NULL);
         return TRUE;
 }
@@ -494,13 +503,22 @@ get_position_info_cb (MafwRenderer   *renderer,
                       gpointer    user_data,
 	              const GError     *error)
 {
+	MafwPlayState state;
 
 	if (error == NULL) {
 		set_position_hscale_position (position);
 	} else {
-		hildon_banner_show_information (GTK_WIDGET (user_data),
-						"chat_smiley_angry",
-						error->message);
+		/* If we are stopped, it is normal that we got the error,
+		   just drop a warning in this case and do not bother the 
+		   user */
+		state = get_selected_renderer_state ();
+		if (state == Stopped) {
+			g_warning ("%s", error->message);
+		} else {
+			hildon_banner_show_information (GTK_WIDGET (user_data),
+							"qgn_list_smiley_angry",
+							error->message);
+		}
 	}
 }
 

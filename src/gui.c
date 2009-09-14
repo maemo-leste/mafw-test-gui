@@ -198,31 +198,31 @@ static void insert_key_to_metadata_view (gpointer key, gpointer value,
 	GtkListStore* store;
 	GtkTreeIter iter;
 	gchar* str_value;
+	GValueArray *values;
 
 	store = GTK_LIST_STORE (user_data);
 	g_assert (store != NULL);
+	values = value;
 
 	/* The actual contents type might be anything, so convert the value
 	   always into a string that can be easily set to the model. */
 
-	if (G_IS_VALUE(value)) {
-		if (G_VALUE_HOLDS((GValue *)value, G_TYPE_STRING)) {
-			str_value = g_strdup ((gchar *) g_value_get_string (value));
+	if (values->n_values == 1) {
+		if (G_VALUE_HOLDS(g_value_array_get_nth(values, 0), G_TYPE_STRING)) {
+			str_value = g_strdup ((gchar *) g_value_get_string (g_value_array_get_nth(values, 0)));
 		} else {
-			str_value = g_strdup_value_contents ((GValue*) value);
+			str_value = g_strdup_value_contents ((GValue*) g_value_array_get_nth(values, 0));
 		}
 	}
 	else
 	{
 		guint i;
 		GString *str;
-		GValueArray *values;
 		GValue strval;
 
 		memset(&strval, 0, sizeof(strval));
 		str = g_string_new(NULL);
 
-		values = value;
 		for (i = 0; i < values->n_values; i++) {
 			g_value_init(&strval, G_TYPE_STRING);
 			g_value_transform(g_value_array_get_nth(values, i),

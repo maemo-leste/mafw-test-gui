@@ -145,10 +145,7 @@ static void add_metadata(const gchar *key, gpointer val, gpointer user_data)
 		GValue* cur_val;
 		const gchar* mime;
 
-		if (G_IS_VALUE(val) == TRUE)
-			cur_val = val;
-		else
-			cur_val = g_value_array_get_nth(val, 0);
+		cur_val = g_value_array_get_nth(val, 0);
 
 		mime = g_value_get_string(cur_val);
 		if (mime == NULL)
@@ -172,11 +169,8 @@ static void add_metadata(const gchar *key, gpointer val, gpointer user_data)
 	{
 		GValue *cur_val;
 
-		if (G_IS_VALUE(val))
-			cur_val = val;
-		else {
-			cur_val = g_value_array_get_nth(val,0);
-		}
+		cur_val = g_value_array_get_nth(val,0);
+
 		if (G_VALUE_HOLDS_INT64(cur_val))
 			set_position_hscale_duration(g_value_get_int64(cur_val));
 		else
@@ -188,14 +182,7 @@ static void add_metadata(const gchar *key, gpointer val, gpointer user_data)
 	{
 		GValue *cur_val;
 
-		if (G_IS_VALUE(val))
-		{
-			cur_val = val;
-		}
-		else
-		{
-			cur_val = g_value_array_get_nth(val,0);
-		}
+		cur_val = g_value_array_get_nth(val,0);
 
 		if (g_value_get_boolean(cur_val) == TRUE)
 		{
@@ -219,38 +206,28 @@ static void add_metadata(const gchar *key, gpointer val, gpointer user_data)
 	}
 
 	memset(&strval, 0, sizeof(strval));
-	if (G_IS_VALUE(val)) {
+
+	guint i;
+	GString *str;
+	GValueArray *values;
+
+	str = g_string_new(NULL);
+	values = val;
+	for (i = 0; i < values->n_values; i++) {
 		g_value_init(&strval, G_TYPE_STRING);
-		g_value_transform(val, &strval);
-
-		add_to_mdata_view(key, g_value_get_string(&strval));
-
+		g_value_transform(g_value_array_get_nth(values, i),
+				  &strval);
+		if (i > 0)
+			g_string_append(str, ", ");
+		g_string_append_c(str, '`');
+		g_string_append(str, g_value_get_string(&strval));
+		g_string_append_c(str, '\'');
 		g_value_unset(&strval);
-	} else {
-		guint i;
-		GString *str;
-		GValueArray *values;
-
-		str = g_string_new(NULL);
-
-		values = val;
-		for (i = 0; i < values->n_values; i++) {
-			g_value_init(&strval, G_TYPE_STRING);
-			g_value_transform(g_value_array_get_nth(values, i),
-					  &strval);
-
-			if (i > 0)
-				g_string_append(str, ", ");
-			g_string_append_c(str, '`');
-			g_string_append(str, g_value_get_string(&strval));
-			g_string_append_c(str, '\'');
-			g_value_unset(&strval);
-		}
-
-		add_to_mdata_view(key, str->str);
-
-		g_string_free(str, TRUE);
 	}
+
+	add_to_mdata_view(key, str->str);
+
+	g_string_free(str, TRUE);
 }
 
 /**

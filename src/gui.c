@@ -747,6 +747,18 @@ on_show_playing_order(GtkMenuItem* item, gpointer user_data)
 }
 
 static void
+on_activate(GtkMenuItem* item, gpointer user_data)
+{
+	activate_all(TRUE);
+}
+
+static void
+on_deactivate(GtkMenuItem* item, gpointer user_data)
+{
+	activate_all(FALSE);
+}
+
+static void
 setup_menu (void)
 {
 	GtkWidget *menu;
@@ -878,6 +890,29 @@ setup_menu (void)
 			  G_CALLBACK (on_import_file), NULL);
 
 	/**********************************************************************/
+
+
+	/* Source control sub-menu */
+	item = gtk_menu_item_new_with_label ("Source control");
+	gtk_menu_shell_append (GTK_MENU_SHELL (menu), item);
+
+	sub_menu = gtk_menu_new ();
+	gtk_menu_item_set_submenu (GTK_MENU_ITEM (item), sub_menu);
+
+	/* Activate all*/
+	sub_item = gtk_menu_item_new_with_label ("Activate all");
+	gtk_menu_shell_append (GTK_MENU_SHELL (sub_menu), sub_item);
+	g_signal_connect (G_OBJECT (sub_item), "activate",
+			  G_CALLBACK (on_activate), NULL);
+
+	/* Deactivate all*/
+	sub_item = gtk_menu_item_new_with_label ("Deactivate all");
+	gtk_menu_shell_append (GTK_MENU_SHELL (sub_menu), sub_item);
+	g_signal_connect (G_OBJECT (sub_item), "activate",
+			  G_CALLBACK (on_deactivate), NULL);
+
+	/**********************************************************************/
+
 
 	item = gtk_menu_item_new_with_label("Bookmark URI");
 	gtk_menu_shell_append(GTK_MENU_SHELL(menu), item);

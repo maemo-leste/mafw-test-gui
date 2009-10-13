@@ -291,11 +291,6 @@ static void mute_cb(MafwExtension *self, const gchar *name, GValue *value,
 	{
 		toggle_mute_button(g_value_get_boolean(value));
 	}
-
-	if (error != NULL)
-		hildon_banner_show_information (GTK_WIDGET (user_data),
-						"chat_smiley_angry",
-						error->message);
 }
 
 /**

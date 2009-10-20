@@ -1,3 +1,16 @@
+mafw-test-gui (0.1.2009.42-2) unstable; urgency=low
+
+  * Version increased.
+
+ -- Mika Tapojärvi <ext-mika.tapojarvi@nokia.com>  Tue, 20 Oct 2009 13:26:50 +0300
+
+mafw-test-gui (0.1.2009.42-1) unstable; urgency=low
+
+  * Version and changelog updated for pre-release 0.2009.42-1
+  * Fixes: NB#139820 - Use-Time:mafw-dbus-wrapper wakes up after pausing the local audio playback.
+
+ -- Mika Tapojärvi <mika.tapojarvi@sse.fi>  Mon, 12 Oct 2009 17:31:42 +0300
+
 mafw-test-gui (0.1.2009.40-1) unstable; urgency=low
 
   * Version and changelog updated for pre-release 0.2009.40-1

@@ -555,8 +555,19 @@ purge_cache_idle (gpointer data)
 static void
 print_metadata (gpointer key, gpointer value, gpointer user_data)
 {
-	gchar* contents = g_strdup_value_contents ((GValue*) value);
+	gchar* contents;
+
+        if (G_IS_VALUE (value))
+                contents = g_strdup_value_contents ((GValue*) value);
+        else {
+                GValue *real_value;
+
+                real_value = g_value_array_get_nth (value, 0);
+                contents = g_strdup_value_contents (real_value);
+        }
+
 	g_debug ("\t%s = %s\n", (gchar*) key, contents);
+
 	g_free (contents);
 }
 #endif
